@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sohail Rana — Web Developer & Designer | Figma to Pixel-Perfect Code</title>
+    <meta
+      name="description"
+      content="Designer and developer in one. I design interfaces in Figma and hand-code them into fast, pixel-perfect, responsive websites. 100% Job Success on Upwork."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://sohailrana.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sohailrana.com/" />
+    <meta property="og:title" content="Sohail Rana — Web Developer & Designer" />
+    <meta
+      property="og:description"
+      content="I design interfaces in Figma and hand-code them into fast, pixel-perfect, responsive websites. 100% Job Success on Upwork."
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!--
+      Hidden static form so Netlify's build bots detect the contact form
+      in this single-page app. Field names must match the React form.
+    -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
