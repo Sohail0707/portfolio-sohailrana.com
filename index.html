@@ -32,9 +32,16 @@
 
     <!--
       Hidden static form so Netlify's build bots detect the contact form
-      in this single-page app. Field names must match the React form.
+      in this single-page app. Field names must match the React form, and
+      the action here is what Netlify uses for the custom success redirect.
     -->
-    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <form
+      name="contact"
+      action="/thanks"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
       <input type="text" name="name" />
       <input type="email" name="email" />
       <textarea name="message"></textarea>

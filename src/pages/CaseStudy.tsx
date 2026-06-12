@@ -220,13 +220,13 @@ export default function CaseStudy() {
               I take on a few projects at a time so each one gets full
               attention. Let's talk about yours.
             </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <div className="mx-auto mt-7 flex w-full max-w-xs flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
               <motion.a
                 href={site.links.upwork}
                 target="_blank"
                 rel="noreferrer"
                 whileTap={{ scale: 0.96 }}
-                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep sm:text-base"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep sm:text-base"
               >
                 Hire me on Upwork
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -235,7 +235,7 @@ export default function CaseStudy() {
               </motion.a>
               <Link
                 to="/#contact"
-                className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white/80 ring-1 ring-white/20 transition-colors hover:text-white sm:text-base"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white/80 ring-1 ring-white/20 transition-colors hover:text-white sm:text-base"
               >
                 Send a message
               </Link>
