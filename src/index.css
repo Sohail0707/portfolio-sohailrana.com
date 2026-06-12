@@ -1,16 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Helvetica, Arial, sans-serif;
+  /* SF Pro on Apple devices; Inter is the closest free fallback elsewhere */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-code: "Fira Code", ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace;
 
-  /* Apple-inspired palette */
+  /* Apple layout, Stripe color scheme */
   --color-ink: #1d1d1f;
   --color-paper: #ffffff;
   --color-mist: #f5f5f7;
   --color-night: #0b0b0f;
-  --color-accent: #0071e3;
-  --color-accent-soft: #2997ff;
+  /* The single actionable color (buttons + links) */
+  --color-accent: #635bff;
+  --color-accent-deep: #5247e6;
+  /* Highlight-text colors: light blue + purple */
+  --color-accent-soft: #3aa2ff;
+  --color-grape: #8b5cf6;
   --color-upwork: #14a800;
 }
 

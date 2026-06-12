@@ -10,18 +10,23 @@ const socials = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="bg-mist py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+    <section id="contact" className="relative overflow-hidden bg-mist py-20 sm:py-28">
+      {/* Aurora — yellow / blue / purple / orange on light backgrounds */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(36rem_24rem_at_8%_92%,rgba(251,191,36,0.14),transparent),radial-gradient(40rem_26rem_at_55%_104%,rgba(139,92,246,0.12),transparent),radial-gradient(34rem_24rem_at_94%_80%,rgba(58,162,255,0.13),transparent),radial-gradient(26rem_18rem_at_85%_6%,rgba(255,138,61,0.07),transparent)]"
+      />
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
+            <p className="font-code text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
               Contact
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
               Let's build
               <br />
               something{" "}
-              <span className="bg-linear-to-r from-accent to-[#7b5bff] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-accent-soft to-grape bg-clip-text text-transparent">
                 exceptional.
               </span>
             </h2>
@@ -31,12 +36,12 @@ export default function Contact() {
               reply with a clear plan.
             </p>
 
-            <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink/70 ring-1 ring-black/5">
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-ink/70 ring-1 ring-white/60 backdrop-blur-xl">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-upwork opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-upwork" />
               </span>
-              Currently available · replies in 4–8 hours
+              Currently taking on new projects
             </div>
 
             <a

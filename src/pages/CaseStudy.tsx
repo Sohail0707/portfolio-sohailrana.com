@@ -20,7 +20,7 @@ function Section({
     <Reveal>
       <section className="border-t border-black/5 py-12 sm:py-16">
         <div className="grid gap-6 md:grid-cols-12">
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink/35 md:col-span-3">
+          <p className="font-code text-xs font-semibold uppercase tracking-widest text-ink/35 md:col-span-3">
             <span className="mr-2 text-accent">{index}</span>
             {label}
           </p>
@@ -88,7 +88,7 @@ export default function CaseStudy() {
             All work
           </Link>
 
-          <p className="mt-8 text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
+          <p className="mt-8 font-code text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
             {project.tag}
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">
@@ -123,7 +123,7 @@ export default function CaseStudy() {
                 href={project.liveUrl ?? project.figmaUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black"
+                className="group inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
               >
                 {project.liveUrl ? "Visit live site" : "View Figma design"}
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -143,25 +143,18 @@ export default function CaseStudy() {
           )}
         </motion.dl>
 
-        {/* Thumbnail with accent glow */}
+        {/* Thumbnail */}
         <motion.div
           initial={{ opacity: 0, y: 32, scale: 0.99 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.18, ease }}
-          className="relative mt-10"
+          className="mt-10 overflow-hidden rounded-3xl ring-1 ring-black/5"
         >
-          <div
-            aria-hidden
-            className="absolute inset-x-4 -bottom-6 top-10 -z-10 rounded-[3rem] opacity-25 blur-3xl"
-            style={{ background: project.accent }}
+          <img
+            src={project.thumbnail}
+            alt={project.thumbnailAlt}
+            className="aspect-video w-full object-cover"
           />
-          <div className="overflow-hidden rounded-3xl ring-1 ring-black/5">
-            <img
-              src={project.thumbnail}
-              alt={project.thumbnailAlt}
-              className="aspect-video w-full object-cover"
-            />
-          </div>
         </motion.div>
 
         {/* Skills */}
@@ -233,7 +226,7 @@ export default function CaseStudy() {
                 target="_blank"
                 rel="noreferrer"
                 whileTap={{ scale: 0.96 }}
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-mist sm:text-base"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep sm:text-base"
               >
                 Hire me on Upwork
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -257,7 +250,7 @@ export default function CaseStudy() {
             className="group flex items-center justify-between rounded-3xl bg-mist p-6 transition-colors hover:bg-[#ebebf0] sm:p-8"
           >
             <span>
-              <span className="block text-xs font-semibold uppercase tracking-widest text-ink/40">
+              <span className="block font-code text-xs font-semibold uppercase tracking-widest text-ink/40">
                 Next project
               </span>
               <span className="mt-1 block text-xl font-semibold tracking-tight sm:text-2xl">

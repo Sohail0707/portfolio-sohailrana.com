@@ -17,7 +17,8 @@
       "Bash(mv upload-2.jpg tysons-roofing.jpg)",
       "Bash(mv upload-3.jpg alejandras-kitchen.jpg)",
       "Bash(mv upload-4.jpg seetha-the-comic.jpg)",
-      "Bash(rm -f _strip.png *.svg)"
+      "Bash(rm -f _strip.png *.svg)",
+      "Bash(node -e ' *)"
     ]
   }
 }

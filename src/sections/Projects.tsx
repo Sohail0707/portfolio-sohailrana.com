@@ -8,7 +8,7 @@ export default function Projects() {
     <section id="work" className="bg-mist py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
+          <p className="font-code text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
             Selected work
           </p>
           <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -24,7 +24,7 @@ export default function Projects() {
 
         <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2">
           {projects.map((project, i) => (
-            <Reveal key={project.slug} delay={(i % 2) * 0.1}>
+            <Reveal key={project.slug} delay={(i % 2) * 0.1} className="h-full">
               <ProjectCard project={project} />
             </Reveal>
           ))}

@@ -18,10 +18,10 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
         scrolled || open
-          ? "border-b border-black/5 bg-white/70 backdrop-blur-xl"
-          : "bg-transparent"
+          ? "border-black/5 bg-white/70 backdrop-blur-xl"
+          : "border-transparent bg-transparent"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -46,7 +46,7 @@ export default function Nav() {
             target="_blank"
             rel="noreferrer"
             whileTap={{ scale: 0.96 }}
-            className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
           >
             Hire me on Upwork
             <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -99,7 +99,7 @@ export default function Nav() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-full bg-ink px-5 py-3 text-center text-base font-medium text-white"
+                className="mt-2 rounded-full bg-accent px-5 py-3 text-center text-base font-medium text-white"
               >
                 Hire me on Upwork ↗
               </a>

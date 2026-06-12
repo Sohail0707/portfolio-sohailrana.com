@@ -44,17 +44,23 @@ needed for content edits:
 
 ### Contact form
 
-The form uses **Netlify Forms** (default setup):
+The form uses **Netlify Forms** with the default setup
+(https://docs.netlify.com/manage/forms/setup/):
 
-- A hidden static `<form name="contact">` in [`index.html`](index.html) lets
-  Netlify's build bots register the form; the React form in
-  `src/components/ContactForm.tsx` posts url-encoded data to `/`.
-- Submissions appear in the Netlify dashboard under **Forms → contact**.
-- To receive submissions by email, add a notification in
-  **Site configuration → Forms → Form notifications** pointing to
-  `hello@sohailrana.com`.
-- The form only works on the deployed site — locally it shows the fallback
-  error with a direct mailto link (expected).
+- The React form in `src/components/ContactForm.tsx` is a plain HTML
+  `<form name="contact" method="POST" data-netlify="true">` that the browser
+  submits natively — no JavaScript involved. A hidden `form-name` input ties
+  the JS-rendered form to the registered one.
+- A hidden static copy of the form in [`index.html`](index.html) lets
+  Netlify's build bots detect it at deploy time (required for single-page
+  apps).
+- After submitting, Netlify redirects to the styled success page at
+  `/thanks` (the form's `action`).
+- Submissions appear in the Netlify dashboard under **Forms → contact**. To
+  get them by email, add a notification in **Site configuration → Forms →
+  Form notifications** pointing to `hello@sohailrana.com`.
+- Netlify processes the POST only on the deployed site — submitting locally
+  returns a 404 (expected).
 
 ## Where things live
 

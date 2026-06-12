@@ -15,8 +15,6 @@ export interface Project {
   /** 16:9 thumbnail in /public/images/projects. */
   thumbnail: string;
   thumbnailAlt: string;
-  /** Accent color sampled from the thumbnail — used for the glow behind it. */
-  accent: string;
   /** Omit for design-only projects (no public site to link). */
   liveUrl?: string;
   /** Public Figma file — linked instead of a live site for design-only projects. */
@@ -40,7 +38,6 @@ export const projects: Project[] = [
     skills: ["Figma", "Web Design", "Jamstack", "Sanity CMS", "Netlify"],
     thumbnail: "/images/projects/seetha-the-comic.jpg",
     thumbnailAlt: "Seetha The Comic — personal brand website redesign",
-    accent: "#f0b429",
     liveUrl: "https://seethathecomic.com/",
     year: "2025–2026",
     role: "Design + development",
@@ -90,7 +87,6 @@ export const projects: Project[] = [
     skills: ["Figma", "UI/UX Design", "JavaScript", "Tailwind CSS", "Netlify"],
     thumbnail: "/images/projects/pentagon-detailing.jpg",
     thumbnailAlt: "Pentagon Detailing — car detailing website with booking system",
-    accent: "#f4582a",
     liveUrl: "https://pentagondetailing.com/",
     year: "2025",
     role: "Design + development",
@@ -134,7 +130,6 @@ export const projects: Project[] = [
     skills: ["Figma", "UI/UX Design", "JavaScript", "REST APIs", "Responsive Design"],
     thumbnail: "/images/projects/alejandras-kitchen.jpg",
     thumbnailAlt: "Alejandra's Kitchen — homestyle meal delivery web app",
-    accent: "#f13fa0",
     figmaUrl:
       "https://www.figma.com/design/ds0TIkTWUVgrAIhwUzpPex/Alexandra-s-Kitchen?node-id=0-1&t=w2OQC8oDKB53D1Tw-1",
     year: "2025",
@@ -179,7 +174,6 @@ export const projects: Project[] = [
     skills: ["Web Design", "HTML5", "CSS3", "JavaScript", "Netlify"],
     thumbnail: "/images/projects/tysons-roofing.jpg",
     thumbnailAlt: "Tyson's Roofing — responsive marketing website for a local service company",
-    accent: "#f9b633",
     figmaUrl:
       "https://www.figma.com/design/9kpvvjsYKu3ZQ3mCCZJ13D/Tysons-Roofing?node-id=0-1&t=IJvaLPhMo4cGHHHN-1",
     year: "2023",

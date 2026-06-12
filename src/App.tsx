@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import CaseStudy from "./pages/CaseStudy";
+import Thanks from "./pages/Thanks";
 import NotFound from "./pages/NotFound";
 
 /**
@@ -45,6 +46,7 @@ export default function App() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
+            <Route path="/thanks" element={<Thanks />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.main>

@@ -1,4 +1,5 @@
 import Reveal from "../components/Reveal";
+import ReviewSlider from "../components/ReviewSlider";
 import { site } from "../data/site";
 
 const capabilities = [
@@ -6,10 +7,20 @@ const capabilities = [
     title: "Pixel-perfect from Figma",
     body: "Your design ships exactly as drawn — spacing, type, states and motion included. No 'that's not how I designed it'.",
     graphic: (
-      <div aria-hidden className="flex items-end gap-2">
-        <div className="h-10 w-10 rounded-lg border-2 border-dashed border-accent-soft/70" />
-        <span className="pb-2 text-white/30">→</span>
-        <div className="h-10 w-10 rounded-lg bg-linear-to-br from-accent to-accent-soft" />
+      <div aria-hidden className="relative h-16 w-48">
+        <div className="absolute left-0 top-0 h-12 w-26 rounded-lg border-2 border-dashed border-accent-soft/70">
+          <span className="absolute -top-2 left-2 bg-[#101016] px-1 font-code text-[9px] text-accent-soft/80">
+            design.fig
+          </span>
+        </div>
+        <div className="absolute left-14 top-4 h-12 w-26 rounded-lg bg-linear-to-br from-accent to-grape shadow-lg shadow-accent/30">
+          <span className="absolute -bottom-2 right-2 rounded bg-white px-1 font-code text-[9px] font-medium text-ink">
+            shipped
+          </span>
+        </div>
+        <span className="absolute right-0 top-0 rounded-full bg-emerald-400/15 px-2 py-0.5 font-code text-[10px] font-semibold text-emerald-300">
+          0px diff
+        </span>
       </div>
     ),
   },
@@ -17,7 +28,7 @@ const capabilities = [
     title: "Clean, hand-written code",
     body: "Semantic HTML, tidy class naming, zero page-builder bloat. Easy to maintain, easy to extend.",
     graphic: (
-      <div aria-hidden className="space-y-1.5 font-mono text-[11px] leading-none">
+      <div aria-hidden className="space-y-1.5 font-code text-[11px] leading-none">
         <p className="text-sky-300/80">&lt;ul&gt;</p>
         <p className="pl-3 text-white/60">&lt;li&gt;Semantic HTML.&lt;/li&gt;</p>
         <p className="pl-3 text-white/60">&lt;li&gt;Naming system.&lt;/li&gt;</p>
@@ -63,33 +74,32 @@ export default function About() {
       {/* Aurora glow behind the glass tiles */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(42rem_26rem_at_12%_18%,rgba(41,151,255,0.14),transparent),radial-gradient(38rem_24rem_at_88%_42%,rgba(123,91,255,0.13),transparent),radial-gradient(46rem_28rem_at_45%_96%,rgba(241,63,160,0.10),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(42rem_26rem_at_12%_18%,rgba(58,162,255,0.14),transparent),radial-gradient(38rem_24rem_at_88%_42%,rgba(139,92,246,0.14),transparent),radial-gradient(46rem_28rem_at_45%_96%,rgba(255,138,61,0.09),transparent)]"
       />
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/40 sm:text-sm">
+          <p className="font-code text-xs font-semibold uppercase tracking-widest text-white/40 sm:text-sm">
             About me
           </p>
           <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
             Design and code,
             <br />
-            <span className="bg-linear-to-r from-accent-soft via-[#9d7bff] to-[#f06ad6] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-accent-soft to-grape bg-clip-text text-transparent">
               under one roof.
             </span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-white/60 sm:text-lg">
             Most clients hire a designer and a developer, then pay for the gap
-            between them. I'm both. Because I own the design and the code, one
-            person turns your rough idea into a polished product — and spots
-            the things that make it better along the way.
+            between them. I'm both — one person from rough idea to polished
+            product.
           </p>
         </Reveal>
 
         {/* Stats */}
         <div className="mt-14 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-4">
           {site.stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.08}>
-              <div className="rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] sm:p-8">
+            <Reveal key={stat.label} delay={i * 0.08} className="h-full">
+              <div className="h-full rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] sm:p-8">
                 <p className="text-4xl font-bold tracking-tight sm:text-5xl">
                   {stat.value}
                   {stat.value === "5.0" && (
@@ -105,7 +115,7 @@ export default function About() {
         {/* Capabilities */}
         <div className="mt-4 grid gap-3 sm:gap-4 md:grid-cols-2">
           {capabilities.map((cap, i) => (
-            <Reveal key={cap.title} delay={(i % 2) * 0.08}>
+            <Reveal key={cap.title} delay={(i % 2) * 0.08} className="h-full">
               <div className="flex h-full flex-col justify-between gap-6 rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] sm:p-8">
                 <div>
                   <h3 className="text-lg font-semibold sm:text-xl">{cap.title}</h3>
@@ -121,7 +131,7 @@ export default function About() {
 
         {/* Story + quote */}
         <div className="mt-4 grid gap-3 sm:gap-4 md:grid-cols-5">
-          <Reveal className="md:col-span-3">
+          <Reveal className="h-full md:col-span-3">
             <div className="h-full rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-xl sm:p-8">
               <h3 className="text-lg font-semibold sm:text-xl">
                 The short version
@@ -143,18 +153,8 @@ export default function About() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1} className="md:col-span-2">
-            <figure className="flex h-full flex-col justify-between rounded-3xl bg-linear-to-br from-accent/25 to-[#f06ad6]/15 p-6 ring-1 ring-white/10 backdrop-blur-xl sm:p-8">
-              <blockquote className="text-sm leading-relaxed text-white/85 sm:text-[15px]">
-                "I had an absolutely fantastic experience working with Sohail on
-                my website. From the very beginning, Sohail took the time to
-                truly understand my brand."
-              </blockquote>
-              <figcaption className="mt-5 text-xs font-medium text-white/50">
-                <span className="text-amber-400">★★★★★</span> · Client review on
-                Upwork
-              </figcaption>
-            </figure>
+          <Reveal delay={0.1} className="h-full md:col-span-2">
+            <ReviewSlider />
           </Reveal>
         </div>
 
