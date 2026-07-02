@@ -1,19 +1,4 @@
-# Dependencies
 node_modules
-
-# Build output
 dist
-
-# Editor / OS
-.DS_Store
 *.local
-
-# Netlify
-.netlify
-
-# Local working files
-.claude/pdf-pages
-.claude/upwork-profile.txt
-
-# Logs
-npm-debug.log*
+.DS_Store

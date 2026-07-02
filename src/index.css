@@ -1,68 +1,124 @@
 @import "tailwindcss";
 
 @theme {
-  /* SF Pro on Apple devices; Inter is the closest free fallback elsewhere */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "SF Pro Text", "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-code: "Fira Code", ui-monospace, "SF Mono", Menlo, Consolas,
-    monospace;
+  --color-ink: #0a0a0b;
+  --color-panel: #121214;
+  --color-panel-2: #17171a;
+  --color-line: rgba(244, 244, 240, 0.09);
+  --color-lime: #c9f24b;
+  --color-lime-soft: rgba(201, 242, 75, 0.12);
+  --color-cyan: #4be1ec;
+  --color-violet: #a78bfa;
+  --color-orange: #ffa94d;
+  --color-paper: #f4f4f0;
+  --color-muted: #9c9c94;
 
-  /* Apple layout, Stripe color scheme */
-  --color-ink: #1d1d1f;
-  --color-paper: #ffffff;
-  --color-mist: #f5f5f7;
-  --color-night: #0b0b0f;
-  /* The single actionable color (buttons + links) */
-  --color-accent: #635bff;
-  --color-accent-deep: #5247e6;
-  /* Highlight-text colors: light blue + purple */
-  --color-accent-soft: #3aa2ff;
-  --color-grape: #8b5cf6;
-  --color-upwork: #14a800;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
   scroll-behavior: smooth;
-  /* keep anchored sections clear of the fixed nav */
-  scroll-padding-top: 96px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
 }
 
 body {
-  @apply bg-paper font-sans text-ink antialiased;
-  font-optical-sizing: auto;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #fff;
+  background: var(--color-lime);
+  color: var(--color-ink);
 }
 
-/* Tech-stack marquee (About section) */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+/* Subtle film grain over the whole site — keeps the dark bg from feeling flat. */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.animate-marquee {
-  animation: marquee 38s linear infinite;
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 244, 240, 0.35);
 }
 
-.marquee:hover .animate-marquee {
-  animation-play-state: paused;
+/* Animated multicolor gradient text for key words. */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
-
+.text-gradient {
+  background-image: linear-gradient(100deg, #c9f24b, #4be1ec, #a78bfa, #c9f24b);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 7s ease-in-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
+  .text-gradient {
     animation: none;
+  }
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.animate-marquee-left {
+  animation: marquee-left 36s linear infinite;
+}
+.animate-marquee-right {
+  animation: marquee-right 42s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation: none;
+  }
+}
+
+/* Hide the scrollbar on carousel scrollers while keeping them scrollable. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 242, 75, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(201, 242, 75, 0); }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2.2s ease-out infinite;
+}
+
+/* Tiny background stars twinkling in the dark sections. */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.8; }
+}
+.animate-twinkle {
+  animation: twinkle 4.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-twinkle {
+    animation: none;
+    opacity: 0.3;
   }
 }

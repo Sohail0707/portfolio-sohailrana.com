@@ -1,86 +1,69 @@
 import Reveal from "../components/Reveal";
+import SectionHeading from "../components/SectionHeading";
 import ContactForm from "../components/ContactForm";
+import { Float, CursorBit, CodeBit } from "../components/decor";
 import { site } from "../data/site";
 
 const socials = [
-  { label: "Upwork", href: site.links.upwork, note: "Hire me with payment protection" },
-  { label: "GitHub", href: site.links.github, note: "Code and experiments" },
-  { label: "LinkedIn", href: site.links.linkedin, note: "The professional bits" },
-] as const;
+  { label: "Upwork", href: site.links.upwork },
+  { label: "GitHub", href: site.links.github },
+  { label: "LinkedIn", href: site.links.linkedin },
+];
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-mist py-20 sm:py-28">
-      {/* Aurora — yellow / blue / purple / orange on light backgrounds */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(36rem_24rem_at_8%_92%,rgba(251,191,36,0.14),transparent),radial-gradient(40rem_26rem_at_55%_104%,rgba(139,92,246,0.12),transparent),radial-gradient(34rem_24rem_at_94%_80%,rgba(58,162,255,0.13),transparent),radial-gradient(26rem_18rem_at_85%_6%,rgba(255,138,61,0.07),transparent)]"
-      />
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <p className="font-code text-xs font-semibold uppercase tracking-widest text-ink/40 sm:text-sm">
-              Contact
-            </p>
-            <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              Let's build
-              <br />
-              something{" "}
-              <span className="bg-linear-to-r from-accent-soft to-grape bg-clip-text text-transparent">
-                exceptional.
-              </span>
-            </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-ink/55 sm:text-lg">
-              Tell me where your project stands — a Figma file waiting to be
-              coded, a dated site that needs a rebuild, or just an idea. I'll
-              reply with a clear plan.
-            </p>
+    <section id="contact" className="relative scroll-mt-16 overflow-hidden border-t border-line py-20 md:py-28">
+      <Float depth={1.1} className="absolute right-[10%] top-16 hidden lg:block">
+        <CursorBit label="let's talk" colorClass="text-lime" />
+      </Float>
+      <Float depth={0.7} className="absolute right-[24%] top-32 hidden xl:block">
+        <CodeBit token="// say hi" className="text-lg text-cyan/50" />
+      </Float>
 
-            <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-ink/70 ring-1 ring-white/60 backdrop-blur-xl">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-upwork opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-upwork" />
-              </span>
-              Currently taking on new projects
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <SectionHeading num="06" title="Let's Build Something" />
+        <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
+          <Reveal className="lg:col-span-2">
+            <p className="font-display text-2xl font-medium leading-snug md:text-3xl">
+              Have a project in mind? Tell me about it — I'll reply with an
+              honest take on scope, timeline, and{" "}
+              <span className="text-gradient">whether I'm the right fit</span>.
+            </p>
+            <div className="mt-8 space-y-5">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-wide text-muted">Email</p>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="mt-1 inline-block font-display text-xl font-semibold text-lime hover:underline"
+                >
+                  {site.email}
+                </a>
+              </div>
+              <div>
+                <p className="font-mono text-xs uppercase tracking-wide text-muted">Elsewhere</p>
+                <ul className="mt-2 flex gap-5">
+                  {socials.map((s) => (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm text-paper underline decoration-line underline-offset-4 transition-colors hover:text-lime hover:decoration-lime"
+                      >
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-line bg-panel px-4 py-2 font-mono text-xs">
+                <span className="h-2 w-2 rounded-full bg-lime animate-pulse-dot" />
+                {site.availability}
+              </div>
             </div>
-
-            <a
-              href={`mailto:${site.email}`}
-              className="group mt-8 flex items-center gap-2 text-lg font-semibold text-ink transition-colors hover:text-accent sm:text-xl"
-            >
-              {site.email}
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-
-            <ul className="mt-8 divide-y divide-black/5 border-y border-black/5">
-              {socials.map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex items-center justify-between py-4 transition-colors"
-                  >
-                    <span>
-                      <span className="block text-base font-semibold text-ink transition-colors group-hover:text-accent">
-                        {social.label}
-                      </span>
-                      <span className="block text-sm text-ink/45">
-                        {social.note}
-                      </span>
-                    </span>
-                    <span className="text-ink/30 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent">
-                      ↗
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.15} className="lg:col-span-3">
             <ContactForm />
           </Reveal>
         </div>

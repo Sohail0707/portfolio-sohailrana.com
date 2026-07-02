@@ -36,7 +36,7 @@ export const projects: Project[] = [
     blurb:
       "A $100 Squarespace tweak that became a full rebrand and Jamstack rebuild — free hosting, self-serve editing, and a site that finally matches the brand.",
     skills: ["Figma", "Web Design", "Jamstack", "Sanity CMS", "Netlify"],
-    thumbnail: "/images/projects/seetha-the-comic.jpg",
+    thumbnail: "/images/projects/seetha-the-comic.svg",
     thumbnailAlt: "Seetha The Comic — personal brand website redesign",
     liveUrl: "https://seethathecomic.com/",
     year: "2025–2026",
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     blurb:
       "A high-shine site for a car detailing studio with a custom multi-step booking flow — designed in Figma and hand-coded to turn visitors into booked appointments.",
     skills: ["Figma", "UI/UX Design", "JavaScript", "Tailwind CSS", "Netlify"],
-    thumbnail: "/images/projects/pentagon-detailing.jpg",
+    thumbnail: "/images/projects/pentagon-detailing.svg",
     thumbnailAlt: "Pentagon Detailing — car detailing website with booking system",
     liveUrl: "https://pentagondetailing.com/",
     year: "2025",
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     blurb:
       "A warm, mobile-first web app for a homestyle meal delivery service — weekly menus and ordering moved out of DMs into one smooth flow.",
     skills: ["Figma", "UI/UX Design", "JavaScript", "REST APIs", "Responsive Design"],
-    thumbnail: "/images/projects/alejandras-kitchen.jpg",
+    thumbnail: "/images/projects/alejandras-kitchen.svg",
     thumbnailAlt: "Alejandra's Kitchen — homestyle meal delivery web app",
     figmaUrl:
       "https://www.figma.com/design/ds0TIkTWUVgrAIhwUzpPex/Alexandra-s-Kitchen?node-id=0-1&t=w2OQC8oDKB53D1Tw-1",
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     blurb:
       "A fast, credible marketing site for a local roofing contractor — designed in Figma and delivered in days, with a quote form built to bring in complete leads.",
     skills: ["Web Design", "HTML5", "CSS3", "JavaScript", "Netlify"],
-    thumbnail: "/images/projects/tysons-roofing.jpg",
+    thumbnail: "/images/projects/tysons-roofing.svg",
     thumbnailAlt: "Tyson's Roofing — responsive marketing website for a local service company",
     figmaUrl:
       "https://www.figma.com/design/9kpvvjsYKu3ZQ3mCCZJ13D/Tysons-Roofing?node-id=0-1&t=IJvaLPhMo4cGHHHN-1",

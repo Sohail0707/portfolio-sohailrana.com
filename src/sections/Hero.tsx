@@ -1,249 +1,180 @@
-import { useRef, type MouseEvent, type ReactNode } from "react";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
-import BrowserMock from "../components/BrowserMock";
+import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { gsap, useGSAP, prefersReducedMotion } from "../lib/gsap";
+import { Float, CursorBit, BrowserBit, CodeBit } from "../components/decor";
 import { site } from "../data/site";
 
-const ease: [number, number, number, number] = [0.21, 0.65, 0.36, 1];
+const socials = [
+  { label: "Upwork", href: site.links.upwork },
+  { label: "GitHub", href: site.links.github },
+  { label: "LinkedIn", href: site.links.linkedin },
+];
 
-function FloatingPill({
-  children,
-  className,
-  delay = 0,
-  depth = 22,
-  mouseX,
-  mouseY,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-  /** Parallax distance in px at the hero's edge; negative inverts direction. */
-  depth?: number;
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
-}) {
-  const reduceMotion = useReducedMotion();
-  const spring = { stiffness: 50, damping: 16, mass: 0.8 };
-  const x = useSpring(
-    useTransform(mouseX, (v) => (reduceMotion ? 0 : v * depth)),
-    spring,
-  );
-  const y = useSpring(
-    useTransform(mouseY, (v) => (reduceMotion ? 0 : v * depth)),
-    spring,
-  );
+const statColors = ["text-lime", "text-cyan", "text-violet", "text-orange"];
 
-  return (
-    <motion.div
-      aria-hidden
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay, duration: 0.6, ease }}
-      style={{ x, y }}
-      className={`absolute z-10 hidden lg:block ${className ?? ""}`}
-    >
-      <motion.div
-        animate={reduceMotion ? undefined : { y: [0, -7, 0] }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: delay * 1.6,
-        }}
-        style={{ willChange: "transform" }}
-        className="flex items-center gap-2 rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-ink shadow-lg shadow-ink/10 ring-1 ring-white/60 backdrop-blur-md"
-      >
-        {children}
-      </motion.div>
-    </motion.div>
-  );
+/** Parses "100%", "5.0", "50+" into a tween target + display format. */
+function parseStat(value: string) {
+  const num = parseFloat(value);
+  const suffix = value.replace(/[\d.]/g, "");
+  const decimals = value.includes(".") ? 1 : 0;
+  return { num, suffix, decimals };
 }
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const fadeUp = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay, ease: [0.21, 0.65, 0.36, 1] as const },
   });
-  const mockY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 90]);
-  const mockScale = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 0.96]);
 
-  // Normalized cursor position within the hero (-0.5 … 0.5) driving the pills.
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
 
-  function handleMouseMove(event: MouseEvent<HTMLElement>) {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    mouseX.set((event.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((event.clientY - rect.top) / rect.height - 0.5);
-  }
+      // Headline lines rise out of clipped wrappers on load.
+      gsap.from(".hero-line", {
+        yPercent: 110,
+        duration: 1,
+        stagger: 0.13,
+        ease: "power4.out",
+        delay: 0.15,
+      });
 
-  function handleMouseLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
-  }
+      // The lime glow sinks and fades as the hero scrolls away.
+      gsap.to(".hero-glow", {
+        yPercent: 50,
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Stats count up once they scroll into view.
+      gsap.utils.toArray<HTMLElement>(".stat-value").forEach((el) => {
+        const { num, suffix, decimals } = parseStat(el.dataset.value ?? "0");
+        const proxy = { v: 0 };
+        gsap.to(proxy, {
+          v: num,
+          duration: 1.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 92%", once: true },
+          onUpdate: () => {
+            el.textContent = proxy.v.toFixed(decimals) + suffix;
+          },
+        });
+      });
+    },
+    { scope: ref },
+  );
 
   return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-40"
-    >
-      {/* Faded grid for depth */}
+    <section ref={ref} id="top" className="relative overflow-hidden pt-16">
+      {/* Lime glow anchoring the hero, helloupdigital-style. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(29,29,31,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(29,29,31,0.055)_1px,transparent_1px)] bg-[size:52px_52px] [mask-image:radial-gradient(62rem_38rem_at_50%_26%,black,transparent)]"
-      />
-      {/* Aurora — yellow / blue / purple / orange only on light backgrounds */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(52rem_28rem_at_50%_-6rem,rgba(58,162,255,0.10),transparent),radial-gradient(56rem_36rem_at_50%_74%,rgba(139,92,246,0.13),transparent),radial-gradient(34rem_26rem_at_5%_80%,rgba(251,191,36,0.13),transparent),radial-gradient(38rem_28rem_at_95%_62%,rgba(58,162,255,0.13),transparent),radial-gradient(28rem_20rem_at_88%_14%,rgba(255,138,61,0.08),transparent)]"
+        className="hero-glow pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-lime/15 blur-[140px]"
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } },
-          }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <motion.a
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
-            }}
-            href={site.links.upwork}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white/55 px-4 py-1.5 text-xs font-medium text-ink/70 shadow-sm ring-1 ring-white/60 backdrop-blur-xl transition-colors hover:text-ink sm:text-sm"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-upwork opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-upwork" />
-            </span>
-            Available for new projects · 100% Job Success
-          </motion.a>
+      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
+        {/* Floating industry props at different depths. */}
+        <Float depth={0.5} className="absolute right-[4%] top-16 hidden -rotate-6 opacity-80 lg:block">
+          <BrowserBit />
+        </Float>
+        <Float depth={1.4} className="absolute right-[16%] top-[44%] hidden md:block">
+          <CursorBit label="design" colorClass="text-cyan" />
+        </Float>
+        <Float depth={1} className="absolute right-[6%] top-[64%] hidden md:block">
+          <CursorBit label="code" colorClass="text-lime" />
+        </Float>
+        <Float depth={0.8} className="absolute right-[34%] top-24 hidden xl:block">
+          <CodeBit token="</div>" className="text-xl text-violet/50" />
+        </Float>
+        <Float depth={1.2} className="absolute right-[28%] top-[58%] hidden xl:block">
+          <CodeBit token="{ }" className="text-2xl text-orange/50" />
+        </Float>
 
-          <motion.h1
-            variants={{
-              hidden: { opacity: 0, y: 24 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
-            }}
-            className="mt-6 text-5xl font-bold leading-[1.04] tracking-tight sm:text-7xl"
-          >
-            <span className="bg-linear-to-r from-accent-soft via-accent to-grape bg-clip-text text-transparent">
-              Pixel-perfect
-            </span>
-            <br />
-            websites.
-          </motion.h1>
-
-          <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 24 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
-            }}
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink/60 sm:text-lg"
-          >
-            I'm {site.name} — one person for design and code. Figma to fast,
-            hand-coded websites. No templates, no handoff gap.
-          </motion.p>
-
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 24 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
-            }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3"
-          >
-            <motion.a
-              href={site.links.upwork}
-              target="_blank"
-              rel="noreferrer"
-              whileTap={{ scale: 0.96 }}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep sm:text-base"
-            >
-              Hire me on Upwork
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                ↗
-              </span>
-            </motion.a>
-            <motion.a
-              href="/#work"
-              whileTap={{ scale: 0.96 }}
-              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink transition-colors hover:text-accent sm:text-base"
-            >
-              See my work
-              <span className="transition-transform duration-300 group-hover:translate-y-0.5">
-                ↓
-              </span>
-            </motion.a>
-          </motion.div>
-
-          <motion.p
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { duration: 0.8, ease } },
-            }}
-            className="mt-8 text-xs font-medium uppercase tracking-widest text-ink/40 sm:text-sm"
-          >
-            ★ 5.0 on Upwork · 50+ websites worked on · Rising Talent
-          </motion.p>
+        <motion.div {...fadeUp(0)} className="flex flex-wrap items-center gap-4">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-panel px-4 py-2 font-mono text-xs text-paper">
+            <span className="h-2 w-2 rounded-full bg-lime animate-pulse-dot" />
+            {site.availability}
+          </span>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted">
+            00 / {site.role} · {site.reach}
+          </span>
         </motion.div>
 
-        {/* Hero graphic */}
-        <div className="relative mx-auto mt-14 max-w-4xl sm:mt-20">
-          <FloatingPill
-            delay={0.9}
-            depth={26}
-            mouseX={mouseX}
-            mouseY={mouseY}
-            className="-left-10 top-10"
-          >
-            <span className="h-2 w-2 rounded-full bg-upwork" /> 100% Job Success
-          </FloatingPill>
-          <FloatingPill
-            delay={1.1}
-            depth={-20}
-            mouseX={mouseX}
-            mouseY={mouseY}
-            className="-right-12 top-24"
-          >
-            ★★★★★ <span className="text-ink/50">5.0 rating</span>
-          </FloatingPill>
-          <FloatingPill
-            delay={1.3}
-            depth={32}
-            mouseX={mouseX}
-            mouseY={mouseY}
-            className="-left-14 bottom-16"
-          >
-            <span className="font-code text-accent">&lt;/&gt;</span> Hand-coded,
-            always
-          </FloatingPill>
+        <h1 className="mt-8 font-display text-[13vw] font-bold uppercase leading-[0.95] tracking-tight sm:text-7xl md:text-8xl">
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span className="hero-line block">Figma to</span>
+          </span>
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span className="hero-line text-gradient block">pixel-perfect</span>
+          </span>
+          <span className="block overflow-hidden pb-[0.08em]">
+            <span className="hero-line text-outline block">code.</span>
+          </span>
+        </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 48 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.45, ease }}
-            style={{ y: mockY, scale: mockScale }}
+        <motion.p {...fadeUp(0.35)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
+          I'm {site.name} — designer and developer in one. I design interfaces
+          in Figma and hand-code them into fast, responsive websites. No
+          templates, no page builders, nothing lost between design and build.
+        </motion.p>
+
+        <motion.div
+          {...fadeUp(0.45)}
+          className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
+        >
+          <a
+            href="/#contact"
+            className="rounded-full bg-lime px-8 py-4 text-center font-display text-base font-semibold text-ink transition-transform hover:-translate-y-0.5"
           >
-            <BrowserMock />
-          </motion.div>
-        </div>
+            Start a project
+          </a>
+          <a
+            href="/#work"
+            className="rounded-full border border-line px-8 py-4 text-center font-display text-base font-semibold text-paper transition-colors hover:border-lime hover:text-lime"
+          >
+            See my work
+          </a>
+          <ul className="flex justify-center gap-4 pt-2 sm:justify-start sm:pt-0 sm:ml-2">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-xs uppercase tracking-wide text-muted underline decoration-line underline-offset-4 transition-colors hover:text-lime hover:decoration-lime"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.dl
+          {...fadeUp(0.55)}
+          className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 md:grid-cols-4 md:pt-10"
+        >
+          {site.stats.map((stat, i) => (
+            <div key={stat.label}>
+              <dd
+                className={`stat-value font-display text-4xl font-bold md:text-5xl ${statColors[i % statColors.length]}`}
+                data-value={stat.value}
+              >
+                {stat.value}
+              </dd>
+              <dt className="mt-1.5 text-sm text-muted">{stat.label}</dt>
+            </div>
+          ))}
+        </motion.dl>
       </div>
     </section>
   );

@@ -1,98 +1,93 @@
-import { motion } from "framer-motion";
-
 const inputClasses =
-  "w-full rounded-xl border border-black/10 bg-white/60 px-4 py-3 text-[15px] text-ink placeholder:text-ink/35 outline-none transition-all duration-300 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10";
+  "w-full rounded-xl border border-line bg-panel px-4 py-3.5 text-paper placeholder:text-muted/60 outline-none transition-colors focus:border-lime";
 
 /**
- * Netlify Forms — default setup (docs.netlify.com/manage/forms/setup):
- * a plain HTML POST that the browser submits natively. Netlify intercepts
- * the POST, stores the submission, and redirects to the `action` page.
- * The matching hidden static form in index.html lets Netlify's build bots
- * register the form, and the hidden `form-name` input ties this
- * JS-rendered form back to it. Works on the deployed site only.
+ * Netlify form — native POST so Netlify handles submissions without JS.
+ * Field names and the /thanks action must match the hidden static form
+ * in index.html; Netlify takes the success redirect from the build-time
+ * registered form, not this one.
  */
 export default function ContactForm() {
   return (
-    <div className="rounded-3xl bg-white/70 p-6 shadow-xl shadow-ink/5 ring-1 ring-white/60 backdrop-blur-2xl sm:p-8">
-      <form
-        name="contact"
-        method="POST"
-        action="/thanks"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        className="space-y-4"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden aria-hidden="true">
-          <label>
-            Don't fill this out if you're human: <input name="bot-field" />
-          </label>
-        </p>
+    <form
+      name="contact"
+      method="POST"
+      action="/thanks"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      className="flex flex-col gap-4"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p hidden aria-hidden="true">
+        <label>
+          Don't fill this out: <input name="bot-field" />
+        </label>
+      </p>
 
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="contact-name"
-            className="mb-1.5 block text-sm font-medium text-ink/70"
-          >
+          <label htmlFor="name" className="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">
             Name
           </label>
           <input
-            id="contact-name"
-            type="text"
+            id="name"
             name="name"
+            type="text"
             required
             autoComplete="name"
             placeholder="Your name"
             className={inputClasses}
           />
         </div>
-
         <div>
-          <label
-            htmlFor="contact-email"
-            className="mb-1.5 block text-sm font-medium text-ink/70"
-          >
+          <label htmlFor="email" className="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">
             Email
           </label>
           <input
-            id="contact-email"
-            type="email"
+            id="email"
             name="email"
+            type="email"
             required
             autoComplete="email"
             placeholder="you@company.com"
             className={inputClasses}
           />
         </div>
+      </div>
 
-        <div>
-          <label
-            htmlFor="contact-message"
-            className="mb-1.5 block text-sm font-medium text-ink/70"
-          >
-            Project details
-          </label>
-          <textarea
-            id="contact-message"
-            name="message"
-            required
-            rows={5}
-            placeholder="A Figma file, a dated site, or just an idea — tell me where your project stands."
-            className={`${inputClasses} resize-none`}
-          />
-        </div>
+      <div>
+        <label htmlFor="project-type" className="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">
+          What do you need?
+        </label>
+        <select id="project-type" name="project-type" defaultValue="New website" className={inputClasses}>
+          <option>New website</option>
+          <option>Redesign an existing site</option>
+          <option>Figma design only</option>
+          <option>Development from my designs</option>
+          <option>Something else</option>
+        </select>
+      </div>
 
-        <motion.button
-          type="submit"
-          whileTap={{ scale: 0.97 }}
-          className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-deep sm:text-base"
-        >
-          Send message
-          <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-            →
-          </span>
-        </motion.button>
-      </form>
-    </div>
+      <div>
+        <label htmlFor="message" className="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">
+          Project details
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          placeholder="Tell me about your project — what it is, what you need, and any deadline."
+          className={`${inputClasses} resize-y`}
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="mt-2 rounded-full bg-lime px-8 py-4 font-display text-base font-semibold text-ink transition-transform hover:-translate-y-0.5 sm:self-start"
+      >
+        Send message →
+      </button>
+    </form>
   );
 }

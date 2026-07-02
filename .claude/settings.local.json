@@ -1,24 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -c \"import pypdf, sys; print\\('pypdf ok', sys.version\\)\")",
-      "Bash(pip install *)",
-      "Bash(python -c \"import pypdf; print\\('installed'\\)\")",
-      "Bash(npm create *)",
-      "Bash(npm --version)",
-      "Bash(npm run *)",
-      "mcp__Claude_Preview__preview_start",
-      "Bash(rm -rf \"C:\\\\Users\\\\sohail\\\\code\\\\portfolio\\\\.claude\\\\pdf-pages\" && ls -a \"C:\\\\Users\\\\sohail\\\\code\\\\portfolio\\\\.claude\" && ls \"C:\\\\Users\\\\sohail\\\\code\\\\portfolio\")",
-      "Bash(rm \"C:\\\\Users\\\\sohail\\\\code\\\\portfolio\\\\.claude\\\\upwork-profile.txt\")",
-      "Bash(ls -lat \"C:\\\\Users\\\\sohail\\\\.claude\\\\projects\\\\C--Users-sohail-code-portfolio\\\\\" 2>/dev/null | head -8)",
-      "Bash(ls -lat /c/Users/sohail/.claude/projects/C--Users-sohail-code-portfolio/ | head -8)",
-      "Bash(python -)",
-      "Bash(mv upload-1.jpg pentagon-detailing.jpg)",
-      "Bash(mv upload-2.jpg tysons-roofing.jpg)",
-      "Bash(mv upload-3.jpg alejandras-kitchen.jpg)",
-      "Bash(mv upload-4.jpg seetha-the-comic.jpg)",
-      "Bash(rm -f _strip.png *.svg)",
-      "Bash(node -e ' *)"
+      "WebFetch(domain:www.helloupdigital.com)",
+      "WebFetch(domain:ozgur.design)",
+      "PowerShell(npm install)",
+      "PowerShell(npm run build)",
+      "PowerShell(npm install gsap @gsap/react)",
+      "PowerShell(Remove-Item \"D:\\\\02-Coding\\\\Projects\\\\portfolio-v2\\\\src\\\\components\\\\Parallax.tsx\" -Confirm:$false)"
     ]
   }
 }

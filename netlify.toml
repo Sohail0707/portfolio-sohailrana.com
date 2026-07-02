@@ -1,9 +1,3 @@
 [build]
   command = "npm run build"
   publish = "dist"
-
-# Single-page app: serve index.html for every route (/work/:slug, etc.)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

@@ -3,27 +3,21 @@ import type { ReactNode } from "react";
 
 interface RevealProps {
   children: ReactNode;
+  /** Stagger offset in seconds. */
   delay?: number;
-  y?: number;
   className?: string;
 }
 
-/** Fades content up once when it scrolls into view. */
-export default function Reveal({
-  children,
-  delay = 0,
-  y = 28,
-  className,
-}: RevealProps) {
-  const reduceMotion = useReducedMotion();
-
+/** Fade-up on scroll into view. Respects prefers-reduced-motion. */
+export default function Reveal({ children, delay = 0, className }: RevealProps) {
+  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduceMotion ? 0 : y }}
+      initial={reduce ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-72px" }}
-      transition={{ duration: 0.7, ease: [0.21, 0.65, 0.36, 1], delay }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay, ease: [0.21, 0.65, 0.36, 1] }}
     >
       {children}
     </motion.div>
