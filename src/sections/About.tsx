@@ -3,10 +3,10 @@ import SectionHeading from "../components/SectionHeading";
 import { site } from "../data/site";
 
 const facts = [
-  { label: "Working with", value: "Clients worldwide — fully remote" },
+  { label: "Working with", value: site.reach },
   { label: "Role", value: site.role },
   { label: "Previously", value: "Frontend Engineer & Designer, Dutrow LLC (3 yrs)" },
-  { label: "Now", value: "Freelance on Upwork — 100% Job Success" },
+  { label: "Now", value: "Top Rated on Upwork — 100% Job Success" },
   { label: "Email", value: site.email, href: `mailto:${site.email}` },
 ];
 
@@ -17,10 +17,10 @@ export default function About() {
         <SectionHeading num="03" title="Background" accent="violet" />
         <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
           <Reveal className="lg:col-span-3">
-            <p className="font-display text-2xl font-medium leading-snug md:text-3xl">
-              Most websites lose something between the designer's file and the
-              developer's build. Mine don't — because{" "}
-              <span className="text-gradient">I'm both</span>.
+            <p className="font-display text-xl font-medium leading-snug sm:text-2xl md:text-3xl">
+              Most sites break at the seams — between the design file, the
+              build, and the CMS behind it. Mine don't, because{" "}
+              <span className="text-gradient">I own all three</span>.
             </p>
             <div className="mt-6 space-y-4 leading-relaxed text-muted">
               <p>
@@ -32,11 +32,12 @@ export default function About() {
                 knowing why the design looks the way it does.
               </p>
               <p>
-                Now I work directly with clients on Upwork. The promise is
-                simple: you deal with one person who owns the whole result. I
-                design your site in Figma, you approve it, and I hand-code it
-                pixel-for-pixel — fast, responsive, and yours to keep. No
-                templates, no page builders, no telephone game.
+                Now I work directly with founders, product teams, and agencies
+                — mostly Next.js and Sanity builds, and getting sites off
+                platforms that have stopped fitting. You deal with one person
+                who owns the whole result: the content model, the design, the
+                front end, and the migration that gets you there. No templates,
+                no page builders, no telephone game.
               </p>
             </div>
           </Reveal>

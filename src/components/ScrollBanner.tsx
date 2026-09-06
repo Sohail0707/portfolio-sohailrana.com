@@ -49,20 +49,20 @@ export default function ScrollBanner({ words, direction = 1 }: ScrollBannerProps
     <div
       ref={ref}
       aria-hidden
-      className="overflow-hidden border-y border-line py-10 md:py-14"
+      className="overflow-hidden border-y border-line py-6 sm:py-10 md:py-14"
     >
-      <div className="banner-row flex w-max items-center gap-8 whitespace-nowrap md:gap-12">
+      <div className="banner-row flex w-max items-center gap-5 whitespace-nowrap sm:gap-8 md:gap-12">
         {repeated.map((word, i) => (
-          <span key={`${word}-${i}`} className="flex items-center gap-8 md:gap-12">
+          <span key={`${word}-${i}`} className="flex items-center gap-5 sm:gap-8 md:gap-12">
             <span
-              className={`font-display text-6xl font-bold uppercase tracking-tight md:text-8xl ${
+              className={`font-display text-4xl font-bold uppercase tracking-tight sm:text-6xl md:text-8xl ${
                 i % 2 === 0 ? "text-paper" : "text-outline"
               }`}
             >
               {word}
             </span>
             <span
-              className={`banner-star inline-block text-4xl md:text-6xl ${starColors[i % starColors.length]}`}
+              className={`banner-star inline-block text-2xl sm:text-4xl md:text-6xl ${starColors[i % starColors.length]}`}
             >
               ✦
             </span>

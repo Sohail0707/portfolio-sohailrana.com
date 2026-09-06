@@ -59,11 +59,18 @@ export default function ContactForm() {
         <label htmlFor="project-type" className="mb-2 block font-mono text-xs uppercase tracking-wide text-muted">
           What do you need?
         </label>
-        <select id="project-type" name="project-type" defaultValue="New website" className={inputClasses}>
-          <option>New website</option>
-          <option>Redesign an existing site</option>
-          <option>Figma design only</option>
-          <option>Development from my designs</option>
+        <select
+          id="project-type"
+          name="project-type"
+          defaultValue="Headless CMS website (Next.js + Sanity)"
+          className={inputClasses}
+        >
+          <option>Headless CMS website (Next.js + Sanity)</option>
+          <option>Migrate an existing site off its platform</option>
+          <option>Rebuild an AI-generated site</option>
+          <option>Feature or component work on an existing codebase</option>
+          <option>API or third-party integration</option>
+          <option>Framer site I can edit myself</option>
           <option>Something else</option>
         </select>
       </div>

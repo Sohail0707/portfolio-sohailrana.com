@@ -24,9 +24,10 @@ export default function Contact() {
         <SectionHeading num="06" title="Let's Build Something" />
         <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
           <Reveal className="lg:col-span-2">
-            <p className="font-display text-2xl font-medium leading-snug md:text-3xl">
-              Have a project in mind? Tell me about it — I'll reply with an
-              honest take on scope, timeline, and{" "}
+            <p className="font-display text-xl font-medium leading-snug sm:text-2xl md:text-3xl">
+              Migrating off a platform, starting a CMS build, or need a hand on
+              an existing codebase? I'll reply with an honest take on scope,
+              timeline, and{" "}
               <span className="text-gradient">whether I'm the right fit</span>.
             </p>
             <div className="mt-8 space-y-5">

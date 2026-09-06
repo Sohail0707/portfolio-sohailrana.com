@@ -12,9 +12,13 @@ const socials = [
 
 const statColors = ["text-lime", "text-cyan", "text-violet", "text-orange"];
 
-/** Parses "100%", "5.0", "50+" into a tween target + display format. */
+/**
+ * Parses "100%", "5.0", "50+" into a tween target + display format.
+ * Returns null for text stats like "Top Rated", which aren't counted up.
+ */
 function parseStat(value: string) {
   const num = parseFloat(value);
+  if (Number.isNaN(num)) return null;
   const suffix = value.replace(/[\d.]/g, "");
   const decimals = value.includes(".") ? 1 : 0;
   return { num, suffix, decimals };
@@ -57,7 +61,9 @@ export default function Hero() {
 
       // Stats count up once they scroll into view.
       gsap.utils.toArray<HTMLElement>(".stat-value").forEach((el) => {
-        const { num, suffix, decimals } = parseStat(el.dataset.value ?? "0");
+        const parsed = parseStat(el.dataset.value ?? "0");
+        if (!parsed) return;
+        const { num, suffix, decimals } = parsed;
         const proxy = { v: 0 };
         gsap.to(proxy, {
           v: num,
@@ -105,41 +111,42 @@ export default function Hero() {
             {site.availability}
           </span>
           <span className="font-mono text-xs uppercase tracking-widest text-muted">
-            00 / {site.role} · {site.reach}
+            00 / {site.role}
           </span>
         </motion.div>
 
-        <h1 className="mt-8 font-display text-[13vw] font-bold uppercase leading-[0.95] tracking-tight sm:text-7xl md:text-8xl">
+        <h1 className="mt-6 font-display text-[11vw] font-bold uppercase leading-[0.95] tracking-tight sm:mt-8 sm:text-7xl md:text-8xl">
           <span className="block overflow-hidden pb-[0.08em]">
-            <span className="hero-line block">Figma to</span>
+            <span className="hero-line block">Headless CMS</span>
           </span>
           <span className="block overflow-hidden pb-[0.08em]">
-            <span className="hero-line text-gradient block">pixel-perfect</span>
+            <span className="hero-line text-gradient block">sites you</span>
           </span>
           <span className="block overflow-hidden pb-[0.08em]">
-            <span className="hero-line text-outline block">code.</span>
+            <span className="hero-line text-outline block">actually own.</span>
           </span>
         </h1>
 
-        <motion.p {...fadeUp(0.35)} className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
-          I'm {site.name} — designer and developer in one. I design interfaces
-          in Figma and hand-code them into fast, responsive websites. No
-          templates, no page builders, nothing lost between design and build.
+        <motion.p {...fadeUp(0.35)} className="mt-6 max-w-xl leading-relaxed text-muted sm:mt-8 sm:text-lg">
+          I'm {site.name} — a Next.js and Sanity developer for startups, SaaS
+          teams, and agencies. I move sites off restrictive builders and
+          AI-generated code onto clean, hand-coded architecture your team owns
+          outright.
         </motion.p>
 
         <motion.div
           {...fadeUp(0.45)}
-          className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
+          className="mt-8 flex flex-col gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center"
         >
           <a
             href="/#contact"
-            className="rounded-full bg-lime px-8 py-4 text-center font-display text-base font-semibold text-ink transition-transform hover:-translate-y-0.5"
+            className="rounded-full bg-lime px-7 py-3.5 text-center font-display text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-base"
           >
             Start a project
           </a>
           <a
             href="/#work"
-            className="rounded-full border border-line px-8 py-4 text-center font-display text-base font-semibold text-paper transition-colors hover:border-lime hover:text-lime"
+            className="rounded-full border border-line px-7 py-3.5 text-center font-display text-sm font-semibold text-paper transition-colors hover:border-lime hover:text-lime sm:px-8 sm:py-4 sm:text-base"
           >
             See my work
           </a>
@@ -161,12 +168,14 @@ export default function Hero() {
 
         <motion.dl
           {...fadeUp(0.55)}
-          className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 md:grid-cols-4 md:pt-10"
+          className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:mt-16 sm:gap-y-8 md:grid-cols-4 md:pt-10"
         >
           {site.stats.map((stat, i) => (
             <div key={stat.label}>
+              {/* Fluid below sm so the widest value ("Top Rated") stays on
+                  one line on narrow phones. */}
               <dd
-                className={`stat-value font-display text-4xl font-bold md:text-5xl ${statColors[i % statColors.length]}`}
+                className={`stat-value font-display text-[clamp(1.5rem,6.5vw,1.875rem)] font-bold sm:text-4xl md:text-5xl ${statColors[i % statColors.length]}`}
                 data-value={stat.value}
               >
                 {stat.value}

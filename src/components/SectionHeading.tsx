@@ -52,7 +52,7 @@ export default function SectionHeading({
     <Reveal className="mb-12 md:mb-16">
       <div ref={ref} className="flex items-baseline gap-4">
         <span className={`font-mono text-sm md:text-base ${accentText[accent]}`}>{num}</span>
-        <h2 className="font-display text-3xl font-bold uppercase tracking-tight md:text-5xl">
+        <h2 className="font-display text-2xl font-bold uppercase tracking-tight sm:text-3xl md:text-5xl">
           {title}
         </h2>
         <span aria-hidden className="relative ml-2 hidden h-px flex-1 self-center sm:block">

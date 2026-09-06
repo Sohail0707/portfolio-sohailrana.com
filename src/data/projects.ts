@@ -32,32 +32,33 @@ export const projects: Project[] = [
   {
     slug: "seetha-the-comic",
     title: "Seetha The Comic",
-    tag: "Personal brand · Jamstack migration",
+    tag: "Platform migration · Sanity CMS",
     blurb:
-      "A $100 Squarespace tweak that became a full rebrand and Jamstack rebuild — free hosting, self-serve editing, and a site that finally matches the brand.",
-    skills: ["Figma", "Web Design", "Jamstack", "Sanity CMS", "Netlify"],
+      "A $100 tweak on a subscription website builder that became a full migration to owned code — content restructured in Sanity, hosting bill gone, and a site the client edits herself.",
+    skills: ["Figma", "Jamstack", "Sanity CMS", "Content Migration", "Netlify"],
     thumbnail: "/images/projects/seetha-the-comic.svg",
-    thumbnailAlt: "Seetha The Comic — personal brand website redesign",
+    thumbnailAlt:
+      "Seetha The Comic — website migrated off a site builder onto a headless CMS",
     liveUrl: "https://seethathecomic.com/",
     year: "2025–2026",
     role: "Design + development",
     problem: {
       heading: "A small fix on a platform working against her",
       paragraphs: [
-        "Seetha came to Upwork with a modest request: a small redesign of her Squarespace site. But the real problem ran deeper. She was paying a monthly subscription for a template that didn't feel like her brand, fighting the editor every time she wanted to change something, and the site did little to showcase a growing comedy career.",
-        "A quick cosmetic patch would have closed the ticket — and left her stuck with the same costs, the same limits, and the same generic look.",
+        "Seetha came to Upwork with a modest request: a small redesign of her existing site. But the real problem ran deeper. She was paying a monthly subscription for a template that didn't feel like her brand, fighting a restrictive editor every time she wanted to change something, and the site did little to showcase a growing comedy career.",
+        "A quick cosmetic patch would have closed the ticket — and left her stuck with the same costs, the same platform ceiling, and the same generic look.",
       ],
     },
     solution: {
       heading: "A rebrand and a platform she actually owns",
       paragraphs: [
-        "Instead of patching the template, I proposed a different path: redesign the site around her brand in Figma, hand-code it as a fast Jamstack site, and move her content into Sanity CMS so she could edit everything herself — hosted on Netlify for free.",
+        "Instead of patching the template, I proposed a different path: redesign the site around her brand in Figma, hand-code it as a fast Jamstack front end, and model her content in Sanity CMS so she could edit everything herself — hosted on Netlify for free.",
         "Once she saw the direction, the scope grew to four times the original job. I designed every page around her voice and material, built the front end from scratch with no page builder in sight, and wired up a clean Sanity studio where shows, clips, and pages are simple structured content.",
       ],
       bullets: [
         "Full brand-first redesign in Figma, approved before a line of code",
         "Hand-coded, responsive Jamstack front end — no templates",
-        "Squarespace → Sanity CMS content migration",
+        "Site-builder content migrated into a modelled Sanity CMS",
         "Free Netlify hosting replacing the monthly subscription",
       ],
     },
@@ -81,26 +82,27 @@ export const projects: Project[] = [
   {
     slug: "pentagon-detailing",
     title: "Pentagon Detailing",
-    tag: "Local business · Custom booking system",
+    tag: "Custom booking flow · Integration",
     blurb:
-      "A high-shine site for a car detailing studio with a custom multi-step booking flow — designed in Figma and hand-coded to turn visitors into booked appointments.",
-    skills: ["Figma", "UI/UX Design", "JavaScript", "Tailwind CSS", "Netlify"],
+      "A hand-coded site with a custom multi-step booking flow built into the product rather than bolted on — matching the brand pixel for pixel and carrying no third-party widget fees.",
+    skills: ["Figma", "JavaScript", "Tailwind CSS", "API Integration", "Netlify"],
     thumbnail: "/images/projects/pentagon-detailing.svg",
-    thumbnailAlt: "Pentagon Detailing — car detailing website with booking system",
+    thumbnailAlt:
+      "Pentagon Detailing — custom-coded website with a multi-step booking system",
     liveUrl: "https://pentagondetailing.com/",
     year: "2025",
     role: "Design + development",
     problem: {
       heading: "Bookings stuck in phone tag",
       paragraphs: [
-        "Pentagon Detailing ran a quality operation with a booking process that didn't match it. Every appointment started as a phone call or DM, followed by back-and-forth about vehicle type, packages, add-ons, and timing. After-hours enquiries went cold, and online the studio looked no different from any other local detailer.",
+        "Pentagon Detailing ran a quality operation with a booking process that didn't match it. Every appointment started as a phone call or DM, followed by back-and-forth about vehicle type, packages, add-ons, and timing. After-hours enquiries went cold — and the obvious off-the-shelf fix, an embedded scheduling widget, would have meant a monthly fee and an interface that looked nothing like the brand.",
       ],
     },
     solution: {
-      heading: "A premium storefront with booking built in",
+      heading: "A booking system built into the site, not bolted onto it",
       paragraphs: [
-        "I designed the brand experience in Figma first — dark, glossy, automotive — and hand-coded it into a fast, responsive site. The centerpiece is a custom multi-step booking flow: pick a vehicle, choose a package, add extras, pick a slot. Pricing updates live at every step, so customers arrive at the confirmation screen already knowing the cost.",
-        "Because the booking system is custom-built rather than an embedded third-party widget, it matches the brand pixel for pixel and adds no monthly fees.",
+        "I designed the brand experience in Figma first — dark, glossy, automotive — and hand-coded it into a fast, responsive front end. The centerpiece is a custom multi-step booking flow: pick a vehicle, choose a package, add extras, pick a slot. Pricing updates live at every step, so customers reach the confirmation screen already knowing the cost.",
+        "Because the flow is custom-built rather than an embedded third-party widget, it matches the brand pixel for pixel, sends structured data straight through to the studio, and adds no recurring cost.",
       ],
       bullets: [
         "Brand-forward UI designed in Figma",
@@ -112,7 +114,7 @@ export const projects: Project[] = [
     outcome: {
       heading: "Structured bookings around the clock",
       paragraphs: [
-        "Booking requests now arrive complete — vehicle, package, add-ons, preferred time — ready to confirm in one reply. The site captures after-hours leads the phone used to lose, and the studio finally looks as premium online as the work it delivers.",
+        "Booking requests now arrive complete — vehicle, package, add-ons, preferred time — ready to confirm in one reply. The site captures after-hours leads the phone used to lose, with no scheduling subscription in the stack.",
       ],
     },
     results: [
@@ -124,12 +126,12 @@ export const projects: Project[] = [
   {
     slug: "alejandras-kitchen",
     title: "Alejandra's Kitchen",
-    tag: "Food delivery · Web app",
+    tag: "Web app · Structured content",
     blurb:
-      "A warm, mobile-first web app for a homestyle meal delivery service — weekly menus and ordering moved out of DMs into one smooth flow.",
-    skills: ["Figma", "UI/UX Design", "JavaScript", "REST APIs", "Responsive Design"],
+      "A mobile-first ordering app where the weekly menu is structured, editable data instead of images pasted into a chat thread — designed in Figma and built around one clean ordering flow.",
+    skills: ["Figma", "UI/UX Design", "JavaScript", "REST APIs", "Structured Content"],
     thumbnail: "/images/projects/alejandras-kitchen.svg",
-    thumbnailAlt: "Alejandra's Kitchen — homestyle meal delivery web app",
+    thumbnailAlt: "Alejandra's Kitchen — mobile-first ordering web app",
     figmaUrl:
       "https://www.figma.com/design/ds0TIkTWUVgrAIhwUzpPex/Alexandra-s-Kitchen?node-id=0-1&t=w2OQC8oDKB53D1Tw-1",
     year: "2025",
@@ -143,12 +145,12 @@ export const projects: Project[] = [
     solution: {
       heading: "A menu-first app designed for phones",
       paragraphs: [
-        "I designed a warm, appetizing interface in Figma and built it as a mobile-first web app, because customers order from their phones. The heart of it is a weekly menu system: dishes are structured data, so updating the rotation is a quick edit instead of a new round of image exports.",
+        "I designed a warm, appetizing interface in Figma and built it as a mobile-first web app, because customers order from their phones. The heart of it is a content model: dishes are structured data on a weekly rotation, so updating the menu is a quick edit instead of a new round of image exports.",
         "Customers browse the week's dishes, build an order, and submit it in one flow — every order arrives complete and consistent.",
       ],
       bullets: [
         "Appetite-driven UI designed in Figma",
-        "Weekly menu as structured, easily updated data",
+        "Weekly menu modelled as structured, editable content",
         "Guided ordering flow replacing free-form DMs",
         "Mobile-first, responsive build",
       ],
@@ -156,7 +158,7 @@ export const projects: Project[] = [
     outcome: {
       heading: "Orders without the back-and-forth",
       paragraphs: [
-        "The weekly menu now updates in minutes, orders arrive structured instead of scattered across chats, and regulars reorder without asking a single question. The kitchen got its hours back — and a foundation that can grow into payments and delivery tracking.",
+        "The weekly menu now updates in minutes, orders arrive structured instead of scattered across chats, and regulars reorder without asking a single question. The kitchen got its hours back — and a content model that can grow into payments and delivery tracking.",
       ],
     },
     results: [
@@ -168,12 +170,12 @@ export const projects: Project[] = [
   {
     slug: "tysons-roofing",
     title: "Tyson's Roofing",
-    tag: "Local service · Marketing site",
+    tag: "Marketing site · Static build",
     blurb:
-      "A fast, credible marketing site for a local roofing contractor — designed in Figma and delivered in days, with a quote form built to bring in complete leads.",
+      "A lean, hand-coded static site shipped in days — no builder, no subscription — built around a single job: turning a visit into a complete quote request.",
     skills: ["Web Design", "HTML5", "CSS3", "JavaScript", "Netlify"],
     thumbnail: "/images/projects/tysons-roofing.svg",
-    thumbnailAlt: "Tyson's Roofing — responsive marketing website for a local service company",
+    thumbnailAlt: "Tyson's Roofing — fast, hand-coded static marketing website",
     figmaUrl:
       "https://www.figma.com/design/9kpvvjsYKu3ZQ3mCCZJ13D/Tysons-Roofing?node-id=0-1&t=IJvaLPhMo4cGHHHN-1",
     year: "2023",
@@ -181,7 +183,7 @@ export const projects: Project[] = [
     problem: {
       heading: "Word of mouth doesn't scale",
       paragraphs: [
-        "Tyson's Roofing won jobs on reputation, but online there was nothing to back it up — no place to see services, check the service area, or request a quote. Homeowners comparing contractors moved on to companies that looked established, and the budget and timeline left no room for a drawn-out agency project.",
+        "Tyson's Roofing won jobs on reputation, but online there was nothing to back it up — no place to see services, check the service area, or request a quote. Prospects comparing contractors moved on to companies that looked established, and the budget and timeline left no room for a drawn-out agency project.",
       ],
     },
     solution: {
@@ -194,13 +196,13 @@ export const projects: Project[] = [
         "Conversion-focused one-page design",
         "Hand-coded static build — instant loads",
         "Prominent quote form capturing complete leads",
-        "Delivered within days on a small-business budget",
+        "Delivered within days on a fixed budget",
       ],
     },
     outcome: {
       heading: "A credible web presence in under two weeks",
       paragraphs: [
-        "The contractor went from invisible to credible: a fast site that ranks for the basics, presents the company properly, and turns visitors into detailed quote requests. The client's review said it best.",
+        "The client went from invisible to credible: a fast site that ranks for the basics, presents the company properly, and turns visitors into detailed quote requests. The client's review said it best.",
       ],
     },
     results: ["Live within days", "5.0 ★ review", "Quote requests with full details"],

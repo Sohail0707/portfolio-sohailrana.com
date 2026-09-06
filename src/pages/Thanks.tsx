@@ -8,7 +8,7 @@ export default function Thanks() {
     <section className="flex min-h-screen items-center pt-16">
       <div className="mx-auto max-w-2xl px-5 py-20 text-center md:px-8">
         <p className="font-mono text-sm text-lime">✓ MESSAGE SENT</p>
-        <h1 className="mt-6 font-display text-4xl font-bold uppercase tracking-tight md:text-6xl">
+        <h1 className="mt-6 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl md:text-6xl">
           Thanks for
           <br />
           reaching out<span className="text-lime">.</span>

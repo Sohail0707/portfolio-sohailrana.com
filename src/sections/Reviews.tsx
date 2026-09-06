@@ -18,13 +18,13 @@ export default function Reviews() {
         <SectionHeading
           num="05"
           title="Client Reviews"
-          intro="Every word below is from a real Upwork review."
+          intro="Every word below is from a real Upwork review — the record behind a Top Rated badge and 100% Job Success."
         />
         <Carousel ariaLabel="Client reviews" itemClassName="w-[86vw] max-w-[420px]">
           {reviews.map((review, i) => (
             <Reveal key={review.name + review.project} delay={Math.min(i * 0.06, 0.2)} className="h-full">
               <figure
-                className={`flex h-full flex-col justify-between rounded-2xl border border-line bg-panel p-7 transition-colors md:p-8 ${cardBorders[i % cardBorders.length]}`}
+                className={`flex h-full flex-col justify-between rounded-2xl border border-line bg-panel p-6 transition-colors sm:p-7 md:p-8 ${cardBorders[i % cardBorders.length]}`}
               >
                 <div>
                   <p aria-hidden className="text-lime tracking-[0.3em]">★★★★★</p>

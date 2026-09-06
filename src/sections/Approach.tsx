@@ -7,7 +7,7 @@ import { approach } from "../data/site";
 
 /** Themed prop shown in each step's empty half of the timeline. */
 const stepDecor = [
-  <ChatBit text="We need a website that actually converts…" />,
+  <ChatBit text="We're stuck on a platform we can't customise…" />,
   <FrameBit label="Homepage / 1440×900" />,
   <TerminalBit />,
   <StatusBit text="Live — deployed to production" />,
@@ -133,7 +133,7 @@ export default function Approach() {
           num="04"
           title="How I Work"
           accent="orange"
-          intro="A process built to remove surprises — you see and approve the design before development starts."
+          intro="A process built to remove surprises — you approve the design before development starts, and you leave owning the code."
         />
 
         <div className="timeline relative">
@@ -179,11 +179,11 @@ export default function Approach() {
                   </div>
 
                   <article
-                    className={`rounded-2xl border border-line bg-panel p-7 transition-colors md:row-start-1 md:p-8 ${s.cardBorder} ${even ? "md:col-start-1" : "md:col-start-2"}`}
+                    className={`rounded-2xl border border-line bg-panel p-6 transition-colors sm:p-7 md:row-start-1 md:p-8 ${s.cardBorder} ${even ? "md:col-start-1" : "md:col-start-2"}`}
                   >
                     <div className="flex items-center gap-4">
                       <s.Icon className={`icon-draw h-9 w-9 ${s.text}`} />
-                      <span className={`font-display text-4xl font-bold ${s.text}`}>
+                      <span className={`font-display text-3xl font-bold sm:text-4xl ${s.text}`}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </div>

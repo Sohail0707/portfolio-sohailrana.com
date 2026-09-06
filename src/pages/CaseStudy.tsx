@@ -22,7 +22,7 @@ function Section({
             {num} / {title}
           </p>
           <div className="md:col-span-3">
-            <h2 className="font-display text-2xl font-bold md:text-3xl">
+            <h2 className="font-display text-xl font-bold sm:text-2xl md:text-3xl">
               {section.heading}
             </h2>
             <div className="mt-5 space-y-4 leading-relaxed text-muted">
@@ -72,10 +72,10 @@ export default function CaseStudy() {
           <p className="mt-8 font-mono text-xs uppercase tracking-wide text-lime">
             {project.tag}
           </p>
-          <h1 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight md:text-6xl">
+          <h1 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl md:text-6xl">
             {project.title}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{project.blurb}</p>
+          <p className="mt-5 max-w-2xl leading-relaxed text-muted sm:text-lg">{project.blurb}</p>
 
           <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
             <div>
@@ -124,7 +124,7 @@ export default function CaseStudy() {
               {project.results.map((r) => (
                 <li
                   key={r}
-                  className="rounded-2xl border border-line bg-panel px-6 py-5 font-display text-lg font-semibold"
+                  className="rounded-2xl border border-line bg-panel px-6 py-5 font-display font-semibold sm:text-lg"
                 >
                   <span aria-hidden className="mr-2 text-lime">✦</span>
                   {r}
@@ -138,7 +138,7 @@ export default function CaseStudy() {
           <Reveal>
             <figure className="rounded-2xl border border-lime/30 bg-lime-soft p-8 md:p-10">
               <p aria-hidden className="text-lime tracking-[0.3em]">★★★★★</p>
-              <blockquote className="mt-4 font-display text-xl font-medium leading-snug md:text-2xl">
+              <blockquote className="mt-4 font-display text-lg font-medium leading-snug sm:text-xl md:text-2xl">
                 “{project.quote.text}”
               </blockquote>
               <figcaption className="mt-4 font-mono text-xs uppercase tracking-wide text-muted">

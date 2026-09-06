@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <Work />
-      <ScrollBanner words={["Design", "Develop", "Deploy"]} />
+      <ScrollBanner words={["Design", "Build", "Migrate"]} />
       <Services />
       <About />
       <Approach />

@@ -11,7 +11,7 @@ export default function Work() {
         <SectionHeading
           num="01"
           title="Selected Work"
-          intro="Real client projects from Upwork — each one designed in Figma and hand-coded, end to end."
+          intro="Real client projects — migrations, CMS builds, and custom integrations, each one designed in Figma and hand-coded end to end."
         />
         <Carousel ariaLabel="Selected projects" itemClassName="w-[86vw] max-w-[520px]">
           {projects.map((project, i) => (

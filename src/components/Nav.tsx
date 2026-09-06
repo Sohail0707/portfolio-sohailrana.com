@@ -92,7 +92,7 @@ export default function Nav() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-baseline gap-4 border-b border-line py-4 font-display text-3xl font-bold uppercase text-paper"
+                    className="flex items-baseline gap-4 border-b border-line py-3.5 font-display text-2xl font-bold uppercase text-paper"
                   >
                     <span className="font-mono text-sm font-normal text-lime">
                       {link.num}
