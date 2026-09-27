@@ -1,16 +1,43 @@
+export interface CaseStudyImage {
+  /** Path under /public. */
+  src: string;
+  alt: string;
+  /**
+   * The file's real pixel dimensions. Required: the galleries lazy-load, and
+   * without an intrinsic ratio to reserve space the images collapse to zero
+   * height and shove the page around as they arrive.
+   */
+  width: number;
+  height: number;
+}
+
+/**
+ * Column count for a section's gallery. Heights are left to the images' own
+ * aspect ratios so UI screenshots are never cropped.
+ */
+export type ImageLayout = "wide" | "phone" | "page";
+
 export interface CaseStudySection {
+  /** Rail label, e.g. "Problem". Defaults to the trio labels for older entries. */
+  label?: string;
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  images?: CaseStudyImage[];
+  imageLayout?: ImageLayout;
 }
 
-export interface Project {
+interface ProjectBase {
   slug: string;
   title: string;
   /** Short category line shown above titles. */
   tag: string;
   /** One-liner used on the project card. */
   blurb: string;
+  /** <title> for the case-study page — keyword-led, brand appended by seo.ts. */
+  metaTitle: string;
+  /** Meta description, kept under ~155 chars so it isn't truncated in results. */
+  metaDescription: string;
   skills: string[];
   /** 16:9 thumbnail in /public/images/projects. */
   thumbnail: string;
@@ -21,11 +48,38 @@ export interface Project {
   figmaUrl?: string;
   year: string;
   role: string;
+  /** Who else worked on it. Omit for solo projects. */
+  team?: string;
+  results?: string[];
+  quote?: { text: string; author: string };
+}
+
+/** Entries built on the fixed Problem / Solution / Outcome trio. */
+interface TrioProject extends ProjectBase {
   problem: CaseStudySection;
   solution: CaseStudySection;
   outcome: CaseStudySection;
-  results?: string[];
-  quote?: { text: string; author: string };
+  sections?: never;
+}
+
+/** Entries that define their own ordered sections and can carry galleries. */
+interface SectionsProject extends ProjectBase {
+  sections: CaseStudySection[];
+  problem?: never;
+  solution?: never;
+  outcome?: never;
+}
+
+export type Project = TrioProject | SectionsProject;
+
+/** Normalises both shapes into the ordered list the case-study page renders. */
+export function caseStudySections(project: Project): CaseStudySection[] {
+  if (project.sections) return project.sections;
+  return [
+    { label: "Problem", ...project.problem },
+    { label: "Solution", ...project.solution },
+    { label: "Outcome", ...project.outcome },
+  ];
 }
 
 export const projects: Project[] = [
@@ -35,6 +89,9 @@ export const projects: Project[] = [
     tag: "Platform migration · Sanity CMS",
     blurb:
       "A $100 tweak on a subscription website builder that became a full migration to owned code — content restructured in Sanity, hosting bill gone, and a site the client edits herself.",
+    metaTitle: "Site Builder to Sanity CMS Migration — Seetha The Comic",
+    metaDescription:
+      "How a small redesign request became a full migration off a subscription site builder onto a hand-coded Jamstack front end with Sanity CMS.",
     skills: ["Figma", "Jamstack", "Sanity CMS", "Content Migration", "Netlify"],
     thumbnail: "/images/projects/seetha-the-comic.svg",
     thumbnailAlt:
@@ -85,6 +142,9 @@ export const projects: Project[] = [
     tag: "Custom booking flow · Integration",
     blurb:
       "A hand-coded site with a custom multi-step booking flow built into the product rather than bolted on — matching the brand pixel for pixel and carrying no third-party widget fees.",
+    metaTitle: "Custom Multi-Step Booking System Build — Pentagon Detailing",
+    metaDescription:
+      "A multi-step booking flow designed in Figma and hand-coded into the site: brand-matched, structured bookings, live pricing, and no third-party widget fees.",
     skills: ["Figma", "JavaScript", "Tailwind CSS", "API Integration", "Netlify"],
     thumbnail: "/images/projects/pentagon-detailing.svg",
     thumbnailAlt:
@@ -126,45 +186,72 @@ export const projects: Project[] = [
   {
     slug: "alejandras-kitchen",
     title: "Alejandra's Kitchen",
-    tag: "Web app · Structured content",
+    tag: "Brand, web & app design · In-house",
     blurb:
-      "A mobile-first ordering app where the weekly menu is structured, editable data instead of images pasted into a chat thread — designed in Figma and built around one clean ordering flow.",
-    skills: ["Figma", "UI/UX Design", "JavaScript", "REST APIs", "Structured Content"],
+      "Brand, website, printable menu and customer app for a homestyle meal-delivery service.",
+    metaTitle: "Brand, Website & App Design — Alejandra's Kitchen",
+    metaDescription:
+      "Brand system, marketing website, two-page printable menu and customer app design for a homestyle meal-delivery service launched by Dutrow LLC.",
+    skills: ["Figma", "UI Design", "HTML", "CSS", "JavaScript"],
     thumbnail: "/images/projects/alejandras-kitchen.svg",
-    thumbnailAlt: "Alejandra's Kitchen — mobile-first ordering web app",
-    figmaUrl:
-      "https://www.figma.com/design/ds0TIkTWUVgrAIhwUzpPex/Alexandra-s-Kitchen?node-id=0-1&t=w2OQC8oDKB53D1Tw-1",
-    year: "2025",
-    role: "Design + development",
-    problem: {
-      heading: "A growing kitchen run from a chat thread",
-      paragraphs: [
-        "Alejandra's homestyle meal service was growing faster than the tools running it. The weekly menu went out as images in chats, orders came back as free-form messages, and every week meant re-answering the same questions — what's available, what it costs, how to order. Mistakes crept in, and time that belonged in the kitchen went to admin.",
-      ],
-    },
-    solution: {
-      heading: "A menu-first app designed for phones",
-      paragraphs: [
-        "I designed a warm, appetizing interface in Figma and built it as a mobile-first web app, because customers order from their phones. The heart of it is a content model: dishes are structured data on a weekly rotation, so updating the menu is a quick edit instead of a new round of image exports.",
-        "Customers browse the week's dishes, build an order, and submit it in one flow — every order arrives complete and consistent.",
-      ],
-      bullets: [
-        "Appetite-driven UI designed in Figma",
-        "Weekly menu modelled as structured, editable content",
-        "Guided ordering flow replacing free-form DMs",
-        "Mobile-first, responsive build",
-      ],
-    },
-    outcome: {
-      heading: "Orders without the back-and-forth",
-      paragraphs: [
-        "The weekly menu now updates in minutes, orders arrive structured instead of scattered across chats, and regulars reorder without asking a single question. The kitchen got its hours back — and a content model that can grow into payments and delivery tracking.",
-      ],
-    },
-    results: [
-      "Menu updates in minutes",
-      "Structured orders, fewer mistakes",
-      "Ready to grow into payments",
+    thumbnailAlt:
+      "Alejandra's Kitchen — marketing website design for a meal-delivery service",
+    year: "Aug 2024 – Mar 2025",
+    role: "Frontend Developer & UI Designer",
+    team: "Backend developer built the server and app",
+    sections: [
+      {
+        label: "Challenge",
+        heading: "A new food business with nothing in place",
+        paragraphs: [
+          "Dutrow LLC, a US company running several local service brands, was launching a homestyle meal-delivery business called Alejandra's Kitchen. I worked there full-time as Frontend Developer & UI Designer.",
+          "It needed to launch with a complete customer experience: a site to explain the service, a menu customers could scan or print, and an app to schedule deliveries and order meals.",
+        ],
+      },
+      {
+        label: "Approach",
+        heading: "One visual system, applied three times",
+        paragraphs: [
+          "I designed the visual system first and settled it before building anything — dark UI, a hot-pink accent, and food photography shot on dark plates.",
+          "Then I applied it across all three touchpoints, so the brand feels the same wherever a customer meets it: on the website, on a printed menu, or in the app.",
+        ],
+      },
+      {
+        label: "Website",
+        heading: "Marketing website",
+        paragraphs: [
+          "The site explains the service and points people at ordering. A hero with a clear call to action, then how it works in four steps: select a day, create a meal, customise it, add items.",
+          "Below that sits the weekly menu in tabs — Daily Specials, Sides, Drinks, Dessert — followed by testimonials, an FAQ and a contact form. I designed it in Figma and built it in HTML, CSS and JavaScript.",
+        ],
+        imageLayout: "wide",
+      },
+      {
+        label: "Print",
+        heading: "Two-page printable menu",
+        paragraphs: [
+          "A two-page layout split into Entree, Extra, Drinks and Dessert, with sale pricing shown alongside the standard prices.",
+          "Dietary icons run through it — sugar-free, contains sugar, vegan, keto, spicy, not spicy — so a customer can read one row and know what they are ordering. A scan-to-order QR code sits next to a promo for daily notifications. I built this in code as well.",
+        ],
+        imageLayout: "page",
+      },
+      {
+        label: "App",
+        heading: "Customer app",
+        paragraphs: [
+          "I designed the app in Figma. A backend developer on the team built the server and the web app itself.",
+          "It opens on a calendar for choosing delivery days. From there customers browse meals by category and open a meal detail with a description, nutrition facts and price. The order summary carries subtotal, tax and discount, with promo cards for the Family Plan and a combo offer.",
+          "The account area covers saved addresses and saved cards, including the empty states for a customer with no address or no card saved yet.",
+        ],
+        imageLayout: "phone",
+      },
+      {
+        label: "Reflection",
+        heading: "What I took from it",
+        paragraphs: [
+          "Designing one system for web, print and mobile made me settle it properly up front — a hot-pink accent that reads well on a dark screen behaves differently in print, and a layout that breathes on a page has to survive a fixed sheet size.",
+          "Working alongside a backend developer also changed how I handed work over: the screens mattered less than the states between them, and designing the empty cases explicitly saved a lot of back-and-forth. The business has since closed, so this is design and frontend work rather than a live product.",
+        ],
+      },
     ],
   },
   {
@@ -173,6 +260,9 @@ export const projects: Project[] = [
     tag: "Marketing site · Static build",
     blurb:
       "A lean, hand-coded static site shipped in days — no builder, no subscription — built around a single job: turning a visit into a complete quote request.",
+    metaTitle: "Fast Hand-Coded Static Marketing Site — Tyson's Roofing",
+    metaDescription:
+      "A lean, hand-coded static marketing site shipped in days, built around one job: turning a visit into a complete quote request.",
     skills: ["Web Design", "HTML5", "CSS3", "JavaScript", "Netlify"],
     thumbnail: "/images/projects/tysons-roofing.svg",
     thumbnailAlt: "Tyson's Roofing — fast, hand-coded static marketing website",

@@ -7,10 +7,8 @@ import Reviews from "../sections/Reviews";
 import Tools from "../sections/Tools";
 import Contact from "../sections/Contact";
 import ScrollBanner from "../components/ScrollBanner";
-import { usePageMeta } from "../hooks/usePageMeta";
 
 export default function Home() {
-  usePageMeta();
   return (
     <>
       <Hero />

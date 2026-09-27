@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import CaseStudy from "./pages/CaseStudy";
 import Thanks from "./pages/Thanks";
 import NotFound from "./pages/NotFound";
+import { usePageMeta } from "./hooks/usePageMeta";
 
 /** Scrolls to the hash target after route changes, or to the top otherwise. */
 function ScrollManager() {
@@ -26,6 +27,7 @@ function ScrollManager() {
 }
 
 export default function App() {
+  usePageMeta();
   return (
     <div className="grain">
       <ScrollManager />

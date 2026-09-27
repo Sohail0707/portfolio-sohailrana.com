@@ -1,1 +1,6 @@
-/*    /index.html   200
+# Prerendered HTML exists for every real route, so static files resolve first
+# and this rule only catches paths that genuinely don't exist. The previous
+# `/* /index.html 200` catch-all answered every URL — including /robots.txt and
+# any typo — with HTTP 200 and the app shell, which is what Search Console was
+# reporting as Soft 404.
+/*  /404.html  404

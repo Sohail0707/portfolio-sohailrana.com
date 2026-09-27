@@ -1,25 +1,42 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import { getProject, projects, type CaseStudySection } from "../data/projects";
-import { usePageMeta } from "../hooks/usePageMeta";
+import {
+  caseStudySections,
+  getProject,
+  projects,
+  type CaseStudySection,
+  type ImageLayout,
+} from "../data/projects";
+import NotFound from "./NotFound";
+
+/** Section rail colours, cycled. The first three keep the original trio's colours. */
+const sectionAccents = ["text-cyan", "text-violet", "text-lime", "text-orange"];
+
+/**
+ * Column counts per gallery type. Heights come from each image's own aspect
+ * ratio rather than a forced one, so UI screenshots are never cropped.
+ */
+const galleryColumns: Record<ImageLayout, string> = {
+  wide: "grid-cols-1",
+  phone: "grid-cols-2 sm:grid-cols-3",
+  page: "grid-cols-1 sm:grid-cols-2",
+};
 
 function Section({
   num,
-  title,
   section,
-  color = "text-lime",
+  color,
 }: {
   num: string;
-  title: string;
   section: CaseStudySection;
-  color?: string;
+  color: string;
 }) {
   return (
     <Reveal>
       <section className="border-t border-line py-12 md:py-16">
         <div className="grid gap-8 md:grid-cols-4">
           <p className={`font-mono text-sm ${color}`}>
-            {num} / {title}
+            {num} / {section.label}
           </p>
           <div className="md:col-span-3">
             <h2 className="font-display text-xl font-bold sm:text-2xl md:text-3xl">
@@ -40,6 +57,26 @@ function Section({
                 ))}
               </ul>
             )}
+            {section.images && section.images.length > 0 && (
+              <ul
+                className={`mt-8 grid items-start gap-4 ${
+                  galleryColumns[section.imageLayout ?? "wide"]
+                }`}
+              >
+                {section.images.map((image) => (
+                  <li key={image.src}>
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      className="h-auto w-full rounded-2xl border border-line bg-panel"
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>
@@ -50,12 +87,12 @@ function Section({
 export default function CaseStudy() {
   const { slug } = useParams();
   const project = slug ? getProject(slug) : undefined;
-  usePageMeta(project?.title, project?.blurb);
 
-  if (!project) return <Navigate to="/" replace />;
+  if (!project) return <NotFound />;
 
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
+  const sections = caseStudySections(project);
   const external = project.liveUrl
     ? { href: project.liveUrl, label: "Visit live site ↗" }
     : project.figmaUrl
@@ -86,6 +123,12 @@ export default function CaseStudy() {
               <dt className="font-mono text-xs uppercase tracking-wide text-muted">Role</dt>
               <dd className="mt-1 text-sm">{project.role}</dd>
             </div>
+            {project.team && (
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wide text-muted">Team</dt>
+                <dd className="mt-1 text-sm">{project.team}</dd>
+              </div>
+            )}
             <div>
               <dt className="font-mono text-xs uppercase tracking-wide text-muted">Skills</dt>
               <dd className="mt-1 text-sm">{project.skills.join(" · ")}</dd>
@@ -113,9 +156,14 @@ export default function CaseStudy() {
         </Reveal>
 
         <div className="mt-12">
-          <Section num="01" title="Problem" section={project.problem} color="text-cyan" />
-          <Section num="02" title="Solution" section={project.solution} color="text-violet" />
-          <Section num="03" title="Outcome" section={project.outcome} color="text-lime" />
+          {sections.map((section, i) => (
+            <Section
+              key={section.heading}
+              num={String(i + 1).padStart(2, "0")}
+              section={section}
+              color={sectionAccents[i % sectionAccents.length]}
+            />
+          ))}
         </div>
 
         {project.results && (

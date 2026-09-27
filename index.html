@@ -3,15 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Everything between the seo markers is replaced per route by
+      scripts/prerender.mjs at build time. The values below are the homepage
+      defaults and are what the dev server serves for every route.
+    -->
+    <!--seo-->
     <title>Sohail Rana — Next.js &amp; Headless CMS Developer | Site Migrations</title>
     <meta
       name="description"
       content="I build headless CMS websites with Next.js and Sanity, and migrate startups, SaaS teams, and agencies off restrictive site builders and AI-generated code onto clean, owned code. Top Rated on Upwork with 100% Job Success."
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://sohailrana.com/" />
-
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sohail Rana" />
     <meta property="og:url" content="https://sohailrana.com/" />
     <meta property="og:title" content="Sohail Rana — Next.js &amp; Headless CMS Developer" />
     <meta
@@ -19,6 +27,7 @@
       content="Headless CMS websites in Next.js and Sanity, and migrations off restrictive platforms and AI-generated code onto code you own. Top Rated on Upwork."
     />
     <meta name="twitter:card" content="summary" />
+    <!--/seo-->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

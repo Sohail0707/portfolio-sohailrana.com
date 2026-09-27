@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { usePageMeta } from "../hooks/usePageMeta";
 import { site } from "../data/site";
 
 export default function Thanks() {
-  usePageMeta("Message sent", "Thanks for reaching out — I'll get back to you soon.");
   return (
     <section className="flex min-h-screen items-center pt-16">
       <div className="mx-auto max-w-2xl px-5 py-20 text-center md:px-8">
