@@ -9,6 +9,7 @@ import CaseStudy from "./pages/CaseStudy";
 import Thanks from "./pages/Thanks";
 import NotFound from "./pages/NotFound";
 import { usePageMeta } from "./hooks/usePageMeta";
+import { useAnalytics } from "./hooks/useAnalytics";
 
 /** Scrolls to the hash target after route changes, or to the top otherwise. */
 function ScrollManager() {
@@ -27,7 +28,9 @@ function ScrollManager() {
 }
 
 export default function App() {
+  // Order matters: usePageMeta sets document.title, which useAnalytics reports.
   usePageMeta();
+  useAnalytics();
   return (
     <div className="grain">
       <ScrollManager />

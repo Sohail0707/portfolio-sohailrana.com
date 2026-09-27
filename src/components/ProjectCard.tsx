@@ -17,6 +17,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <img
           src={project.thumbnail}
           alt={project.thumbnailAlt}
+          width={1440}
+          height={810}
           loading={index > 1 ? "lazy" : undefined}
           draggable={false}
           className="h-full w-full object-cover"

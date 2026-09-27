@@ -6,6 +6,30 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!--
+      Google Analytics (GA4). Loaded only on the live domain, so local
+      development and Netlify deploy previews stay out of the data — this
+      site's traffic is small enough that dev sessions would distort it.
+
+      page_view is switched off here and sent from src/hooks/useAnalytics.ts
+      instead. The default snippet only reports the initial load, which would
+      miss every client-side route change.
+    -->
+    <script>
+      (function () {
+        var host = location.hostname;
+        if (host !== "sohailrana.com" && host !== "www.sohailrana.com") return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        var tag = document.createElement("script");
+        tag.async = true;
+        tag.src = "https://www.googletagmanager.com/gtag/js?id=G-XVN77EXL9P";
+        document.head.appendChild(tag);
+        window.gtag("js", new Date());
+        window.gtag("config", "G-XVN77EXL9P", { send_page_view: false });
+      })();
+    </script>
+
+    <!--
       Everything between the seo markers is replaced per route by
       scripts/prerender.mjs at build time. The values below are the homepage
       defaults and are what the dev server serves for every route.
@@ -29,12 +53,32 @@
     <meta name="twitter:card" content="summary" />
     <!--/seo-->
 
+    <!--
+      Fonts load without blocking render. The hero holds the LCP element, and a
+      third-party stylesheet in the critical path delays it by a full
+      DNS + TLS + request round trip on mobile. The media="print" swap drops
+      the block; index.css already declares system-ui fallbacks, and the
+      Google URL already carries display=swap, so text paints immediately.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

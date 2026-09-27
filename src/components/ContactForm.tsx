@@ -2,6 +2,21 @@ const inputClasses =
   "w-full rounded-xl border border-line bg-panel px-4 py-3.5 text-paper placeholder:text-muted/60 outline-none transition-colors focus:border-lime";
 
 /**
+ * GA4's recommended lead event. The form does a native POST, so this fires
+ * during submit — gtag uses sendBeacon, which survives the navigation. The
+ * /thanks page view records the conversion too; this adds which service line
+ * the enquiry was for, which is the useful thing to segment on. No-ops in
+ * development, where the tag isn't loaded.
+ */
+function trackLead(event: React.FormEvent<HTMLFormElement>) {
+  if (typeof window.gtag !== "function") return;
+  const projectType = new FormData(event.currentTarget).get("project-type");
+  window.gtag("event", "generate_lead", {
+    project_type: typeof projectType === "string" ? projectType : "unknown",
+  });
+}
+
+/**
  * Netlify form — native POST so Netlify handles submissions without JS.
  * Field names and the /thanks action must match the hidden static form
  * in index.html; Netlify takes the success redirect from the build-time
@@ -13,6 +28,7 @@ export default function ContactForm() {
       name="contact"
       method="POST"
       action="/thanks"
+      onSubmit={trackLead}
       data-netlify="true"
       netlify-honeypot="bot-field"
       className="flex flex-col gap-4"

@@ -2,7 +2,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import App from "./App";
 
-export { routeSeo, notFoundSeo, SITE_URL } from "./data/seo";
+export { routeSeo, notFoundSeo, SITE_URL, OG_IMAGE } from "./data/seo";
 export { site } from "./data/site";
 export { projects } from "./data/projects";
 

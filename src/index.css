@@ -122,3 +122,53 @@ body {
     opacity: 0.3;
   }
 }
+
+/* Hero entrance.
+
+   Driven by CSS rather than JS on purpose: the hero holds the largest text on
+   the page, so it is the LCP element. Animating it from opacity:0 in
+   framer-motion/GSAP left it invisible until the ~180 kB bundle had parsed and
+   run. As CSS it starts at first paint instead, independent of JavaScript. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-line-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Longhand, not the `animation` shorthand: the shorthand resets
+   animation-delay to 0 and would silently wipe out the per-element
+   [animation-delay:*] utilities that stagger these. */
+.animate-hero-rise {
+  animation-name: hero-rise;
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.21, 0.65, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.animate-hero-line {
+  animation-name: hero-line-rise;
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise,
+  .animate-hero-line {
+    animation: none;
+  }
+}

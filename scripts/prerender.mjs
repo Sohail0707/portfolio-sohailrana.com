@@ -9,6 +9,7 @@
  *
  * Run after `vite build` and `vite build --ssr`. See package.json.
  */
+import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -17,7 +18,7 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const dist = path.join(root, "dist");
 const ssrEntry = path.join(root, "dist-ssr", "entry-server.js");
 
-const { render, routeSeo, notFoundSeo, SITE_URL, site, projects } = await import(
+const { render, routeSeo, notFoundSeo, SITE_URL, OG_IMAGE, site, projects } = await import(
   pathToFileURL(ssrEntry).href
 );
 
@@ -90,7 +91,11 @@ function head(route) {
     `<meta property="og:url" content="${attr(url)}" />`,
     `<meta property="og:title" content="${attr(route.title)}" />`,
     `<meta property="og:description" content="${attr(route.description)}" />`,
-    `<meta name="twitter:card" content="summary" />`,
+    OG_IMAGE ? `<meta property="og:image" content="${attr(SITE_URL + OG_IMAGE)}" />` : "",
+    OG_IMAGE ? `<meta property="og:image:width" content="1200" />` : "",
+    OG_IMAGE ? `<meta property="og:image:height" content="630" />` : "",
+    OG_IMAGE ? `<meta name="twitter:image" content="${attr(SITE_URL + OG_IMAGE)}" />` : "",
+    `<meta name="twitter:card" content="${OG_IMAGE ? "summary_large_image" : "summary"}" />`,
     structuredData(route),
     "<!--/seo-->",
   ]
@@ -121,10 +126,36 @@ for (const route of routeSeo) {
 // Netlify serves this with a real 404 status for anything that matched no file.
 written.push(await emit(notFoundSeo, "404.html"));
 
+/*
+ * lastmod tells Google whether a recrawl is worth it. Take it from the last
+ * commit touching src/data — where every page's content actually lives —
+ * rather than the build time, which would claim a change on every deploy and
+ * get the signal discounted. Omitted entirely when git isn't available: no
+ * date is better than a wrong one.
+ */
+function lastContentChange() {
+  try {
+    const iso = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", "src/data"],
+      { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim();
+    return /^\d{4}-\d{2}-\d{2}T/.test(iso) ? iso.slice(0, 10) : null;
+  } catch {
+    return null;
+  }
+}
+
+const lastmod = lastContentChange();
 const indexable = routeSeo.filter((route) => !route.noindex);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${indexable.map((route) => `  <url><loc>${absolute(route.path)}</loc></url>`).join("\n")}
+${indexable
+  .map(
+    (route) =>
+      `  <url><loc>${absolute(route.path)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`,
+  )
+  .join("\n")}
 </urlset>
 `;
 await writeFile(path.join(dist, "sitemap.xml"), sitemap, "utf8");
@@ -133,4 +164,6 @@ console.log(`prerendered ${written.length} pages:`);
 for (const { file, bytes } of written) {
   console.log(`  ${file.padEnd(34)} ${(bytes / 1024).toFixed(1)} kB`);
 }
-console.log(`sitemap.xml  ${indexable.length} indexable URLs`);
+console.log(
+  `sitemap.xml  ${indexable.length} indexable URLs${lastmod ? ` (lastmod ${lastmod})` : ""}`,
+);

@@ -151,6 +151,8 @@ export default function CaseStudy() {
           <img
             src={project.thumbnail}
             alt={project.thumbnailAlt}
+            width={1440}
+            height={810}
             className="aspect-video w-full rounded-2xl border border-line object-cover"
           />
         </Reveal>

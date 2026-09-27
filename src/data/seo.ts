@@ -4,6 +4,14 @@ import { projects } from "./projects";
 /** Absolute origin, used for canonicals, OG URLs and the sitemap. */
 export const SITE_URL = "https://sohailrana.com";
 
+/**
+ * Social preview image, 1200x630, as a path under /public.
+ * Null until the real asset exists: pointing og:image at a missing file makes
+ * crawlers fetch a 404, which is worse than declaring no image at all. Set
+ * this and prerender.mjs emits og:image plus the large Twitter card.
+ */
+export const OG_IMAGE: string | null = null;
+
 export interface RouteSeo {
   /** Path as served — no trailing slash except for the root. */
   path: string;
