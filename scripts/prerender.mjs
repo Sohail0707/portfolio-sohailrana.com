@@ -103,9 +103,17 @@ function head(route) {
     .join("\n    ");
 }
 
-/** "/" -> index.html, "/work/x" -> work/x/index.html (Netlify serves these as pretty URLs). */
+/**
+ * "/" -> index.html, "/work/x" -> work/x.html
+ *
+ * Flat files, not directories. Netlify's asset server resolves a bare path to
+ * `<path>.html` and serves it 200, but with `work/x/index.html` it instead
+ * 301s /work/x to /work/x/ — so every sitemap URL was a redirect whose target
+ * carried a canonical pointing back at the redirecting URL. Search Console
+ * reads that contradiction as "Page with redirect" and drops the page.
+ */
 const outputFile = (routePath) =>
-  routePath === "/" ? "index.html" : path.join(routePath.replace(/^\//, ""), "index.html");
+  routePath === "/" ? "index.html" : `${routePath.replace(/^\//, "")}.html`;
 
 async function emit(route, file) {
   const body = render(route.path);
