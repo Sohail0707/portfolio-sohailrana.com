@@ -3,7 +3,7 @@ import Reveal from "../components/Reveal";
 import {
   caseStudySections,
   getProject,
-  projects,
+  listedProjects,
   type CaseStudySection,
   type ImageLayout,
 } from "../data/projects";
@@ -90,8 +90,9 @@ export default function CaseStudy() {
 
   if (!project) return <NotFound />;
 
-  const index = projects.indexOf(project);
-  const next = projects[(index + 1) % projects.length];
+  // Unlisted pages sit outside the loop; they hand off to the first listed project.
+  const index = listedProjects.indexOf(project);
+  const next = listedProjects[(index + 1) % listedProjects.length];
   const sections = caseStudySections(project);
   const external = project.liveUrl
     ? { href: project.liveUrl, label: "Visit live site ↗" }

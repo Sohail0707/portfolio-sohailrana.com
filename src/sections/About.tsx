@@ -5,7 +5,7 @@ import { site } from "../data/site";
 const facts = [
   { label: "Working with", value: site.reach },
   { label: "Role", value: site.role },
-  { label: "Previously", value: "Frontend Engineer & Designer, Dutrow LLC (3 yrs)" },
+  { label: "Previously", value: "Front-End Developer & Designer, Dutrow LLC (2 yrs)" },
   { label: "Now", value: "Top Rated on Upwork — 100% Job Success" },
   { label: "Email", value: site.email, href: `mailto:${site.email}` },
 ];
@@ -24,7 +24,7 @@ export default function About() {
             </p>
             <div className="mt-6 space-y-4 leading-relaxed text-muted">
               <p>
-                I spent three years as a Frontend Engineer &amp; Designer at
+                I spent two years as Front-End Developer &amp; Designer at
                 Dutrow LLC, designing and shipping websites for clients across
                 industries — over fifty sites passed through my hands in that
                 time. That's where the two crafts fused: every design decision
@@ -32,12 +32,13 @@ export default function About() {
                 knowing why the design looks the way it does.
               </p>
               <p>
-                Now I work directly with founders, product teams, and agencies
-                — mostly Next.js and Sanity builds, and getting sites off
-                platforms that have stopped fitting. You deal with one person
-                who owns the whole result: the content model, the design, the
-                front end, and the migration that gets you there. No templates,
-                no page builders, no telephone game.
+                Now I work directly with founders, product teams, and agencies:
+                designing and building custom React and Sanity sites, rebuilding
+                sites that have stopped fitting, and building Figma files from
+                teams who need them done properly. You deal with one person who
+                owns the whole result: the design, the front end, the content
+                model, and the handover. No templates, no page builders, no
+                telephone game.
               </p>
             </div>
           </Reveal>

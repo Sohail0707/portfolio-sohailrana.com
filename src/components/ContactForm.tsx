@@ -78,14 +78,14 @@ export default function ContactForm() {
         <select
           id="project-type"
           name="project-type"
-          defaultValue="Headless CMS website (Next.js + Sanity)"
+          defaultValue="Build my Figma design"
           className={inputClasses}
         >
-          <option>Headless CMS website (Next.js + Sanity)</option>
-          <option>Migrate an existing site off its platform</option>
-          <option>Rebuild an AI-generated site</option>
-          <option>Feature or component work on an existing codebase</option>
-          <option>API or third-party integration</option>
+          <option>Build my Figma design</option>
+          <option>Design and build a new site</option>
+          <option>Sanity CMS website</option>
+          <option>Rebuild or migrate an existing site</option>
+          <option>Custom feature or integration</option>
           <option>Framer site I can edit myself</option>
           <option>Something else</option>
         </select>

@@ -46,6 +46,8 @@ interface ProjectBase {
   liveUrl?: string;
   /** Public Figma file — linked instead of a live site for design-only projects. */
   figmaUrl?: string;
+  /** Page stays live at /work/<slug> but is left off the homepage grid and the next-project loop. */
+  unlisted?: boolean;
   year: string;
   role: string;
   /** Who else worked on it. Omit for solo projects. */
@@ -88,10 +90,10 @@ export const projects: Project[] = [
     title: "Seetha The Comic",
     tag: "Platform migration · Sanity CMS",
     blurb:
-      "A $100 tweak on a subscription website builder that became a full migration to owned code — content restructured in Sanity, hosting bill gone, and a site the client edits herself.",
+      "A small fix on a site builder that became a full migration to owned code, with content restructured in Sanity and a site the client now edits herself.",
     metaTitle: "Site Builder to Sanity CMS Migration — Seetha The Comic",
     metaDescription:
-      "How a small redesign request became a full migration off a subscription site builder onto a hand-coded Jamstack front end with Sanity CMS.",
+      "How a small redesign request became a full migration off a site builder onto a hand-coded front end with Sanity CMS that the client edits herself.",
     skills: ["Figma", "Jamstack", "Sanity CMS", "Content Migration", "Netlify"],
     thumbnail: "/images/projects/seetha-the-comic.svg",
     thumbnailAlt:
@@ -102,32 +104,32 @@ export const projects: Project[] = [
     problem: {
       heading: "A small fix on a platform working against her",
       paragraphs: [
-        "Seetha came to Upwork with a modest request: a small redesign of her existing site. But the real problem ran deeper. She was paying a monthly subscription for a template that didn't feel like her brand, fighting a restrictive editor every time she wanted to change something, and the site did little to showcase a growing comedy career.",
-        "A quick cosmetic patch would have closed the ticket — and left her stuck with the same costs, the same platform ceiling, and the same generic look.",
+        "Seetha came to Upwork with a modest request: a small redesign of her existing site. But the real problem ran deeper. She was working inside a template that didn't feel like her brand, fighting a restrictive editor every time she wanted to change something, and the site did little to showcase a growing comedy career.",
+        "A quick cosmetic patch would have closed the ticket — and left her stuck with the same platform ceiling and the same generic look.",
       ],
     },
     solution: {
       heading: "A rebrand and a platform she actually owns",
       paragraphs: [
-        "Instead of patching the template, I proposed a different path: redesign the site around her brand in Figma, hand-code it as a fast Jamstack front end, and model her content in Sanity CMS so she could edit everything herself — hosted on Netlify for free.",
+        "Instead of patching the template, I proposed a different path: redesign the site around her brand in Figma, hand-code it as a fast Jamstack front end, and model her content in Sanity CMS so she could edit everything herself — deployed on Netlify.",
         "Once she saw the direction, the scope grew to four times the original job. I designed every page around her voice and material, built the front end from scratch with no page builder in sight, and wired up a clean Sanity studio where shows, clips, and pages are simple structured content.",
       ],
       bullets: [
         "Full brand-first redesign in Figma, approved before a line of code",
         "Hand-coded, responsive Jamstack front end — no templates",
         "Site-builder content migrated into a modelled Sanity CMS",
-        "Free Netlify hosting replacing the monthly subscription",
+        "Deployed on Netlify, with the site fully under her control",
       ],
     },
     outcome: {
-      heading: "Lower costs, full control, and a 5-star review",
+      heading: "Full control, and a 5-star review",
       paragraphs: [
-        "The subscription bill went to zero, the site loads fast everywhere, and Seetha updates her own content in minutes — no developer required. What started as a $100 ticket ended as a complete platform she owns outright.",
+        "The site loads fast everywhere, and Seetha updates her own content in minutes — no developer required. What started as a small redesign ended as a complete platform she owns outright.",
       ],
     },
     results: [
       "Scope grew 4× on merit",
-      "$0/month hosting on Netlify",
+      "Content restructured in Sanity",
       "Client edits content herself",
       "5.0 ★ review",
     ],
@@ -141,10 +143,10 @@ export const projects: Project[] = [
     title: "Pentagon Detailing",
     tag: "Custom booking flow · Integration",
     blurb:
-      "A hand-coded site with a custom multi-step booking flow built into the product rather than bolted on — matching the brand pixel for pixel and carrying no third-party widget fees.",
+      "A hand-coded site with a custom multi-step booking flow built into the product rather than bolted on, matching the brand pixel for pixel with no third-party widget.",
     metaTitle: "Custom Multi-Step Booking System Build — Pentagon Detailing",
     metaDescription:
-      "A multi-step booking flow designed in Figma and hand-coded into the site: brand-matched, structured bookings, live pricing, and no third-party widget fees.",
+      "A multi-step booking flow designed in Figma and hand-coded into the site: brand-matched, structured bookings, live pricing, and no third-party widget.",
     skills: ["Figma", "JavaScript", "Tailwind CSS", "API Integration", "Netlify"],
     thumbnail: "/images/projects/pentagon-detailing.svg",
     thumbnailAlt:
@@ -155,14 +157,14 @@ export const projects: Project[] = [
     problem: {
       heading: "Bookings stuck in phone tag",
       paragraphs: [
-        "Pentagon Detailing ran a quality operation with a booking process that didn't match it. Every appointment started as a phone call or DM, followed by back-and-forth about vehicle type, packages, add-ons, and timing. After-hours enquiries went cold — and the obvious off-the-shelf fix, an embedded scheduling widget, would have meant a monthly fee and an interface that looked nothing like the brand.",
+        "Pentagon Detailing ran a quality operation with a booking process that didn't match it. Every appointment started as a phone call or DM, followed by back-and-forth about vehicle type, packages, add-ons, and timing. After-hours enquiries went cold — and the obvious off-the-shelf fix, an embedded scheduling widget, would have meant an interface that looked nothing like the brand.",
       ],
     },
     solution: {
       heading: "A booking system built into the site, not bolted onto it",
       paragraphs: [
         "I designed the brand experience in Figma first — dark, glossy, automotive — and hand-coded it into a fast, responsive front end. The centerpiece is a custom multi-step booking flow: pick a vehicle, choose a package, add extras, pick a slot. Pricing updates live at every step, so customers reach the confirmation screen already knowing the cost.",
-        "Because the flow is custom-built rather than an embedded third-party widget, it matches the brand pixel for pixel, sends structured data straight through to the studio, and adds no recurring cost.",
+        "Because the flow is custom-built rather than an embedded third-party widget, it matches the brand pixel for pixel and sends structured data straight through to the studio.",
       ],
       bullets: [
         "Brand-forward UI designed in Figma",
@@ -174,11 +176,11 @@ export const projects: Project[] = [
     outcome: {
       heading: "Structured bookings around the clock",
       paragraphs: [
-        "Booking requests now arrive complete — vehicle, package, add-ons, preferred time — ready to confirm in one reply. The site captures after-hours leads the phone used to lose, with no scheduling subscription in the stack.",
+        "Booking requests now arrive complete — vehicle, package, add-ons, preferred time — ready to confirm in one reply. The site captures after-hours leads the phone used to lose.",
       ],
     },
     results: [
-      "Custom booking flow, no widget fees",
+      "Custom booking flow, no third-party widget",
       "Complete requests, no phone tag",
       "After-hours leads captured",
     ],
@@ -255,11 +257,80 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "trovr",
+    title: "Trovr",
+    tag: "Codebase takeover · Migration",
+    blurb:
+      "A travel site inherited as a React single-page app, locked to a host the client didn't control. Assessed, rebuilt as a fast static site, and handed over on her own domain with automatic deploys from GitHub.",
+    metaTitle: "React Site Takeover and Static Rebuild — Trovr",
+    metaDescription:
+      "A React single-page app locked to a host the client didn't control, assessed and rebuilt as a fast static site on her own domain with deploys from GitHub.",
+    skills: ["Codebase Audit", "React", "Website Migration", "GitHub", "Netlify"],
+    thumbnail: "/images/projects/trovr.svg",
+    thumbnailAlt: "Trovr — travel website rebuilt as a fast static site on the client's own domain",
+    liveUrl: "https://trovr.com.br",
+    year: "2026",
+    role: "Audit + rebuild",
+    sections: [
+      {
+        label: "Brief",
+        heading: "A site she couldn't call her own",
+        paragraphs: [
+          "Trovr's travel site had been built as a React single-page app and was locked to a host she didn't control. She wanted it on her own domain, on a stack she owned.",
+        ],
+      },
+      {
+        label: "Finding",
+        heading: "Heavier than the content needed",
+        paragraphs: [
+          "I started by assessing the codebase rather than assuming a like-for-like move. The architecture was heavier than an almost entirely static content site needed, so moving it as it stood would have carried that weight to a new home.",
+        ],
+      },
+      {
+        label: "Work",
+        heading: "Rebuilt as a fast static site",
+        paragraphs: [
+          "I rebuilt it as a fast static site, deployed from GitHub to Netlify on her own custom domain and DNS.",
+        ],
+        images: [
+          {
+            src: "/images/projects/trovr-home.svg",
+            alt: "Trovr homepage on the rebuilt static site",
+            width: 1600,
+            height: 1000,
+          },
+        ],
+        imageLayout: "wide",
+      },
+      {
+        label: "Handoff",
+        heading: "Nothing left depending on me",
+        paragraphs: [
+          "She got a clean repository and automatic deploys on every push, with no dependency on me. Any developer can take it over without renegotiating access.",
+        ],
+        images: [
+          {
+            src: "/images/projects/trovr-handoff.svg",
+            alt: "Trovr repository and deploy setup on GitHub and Netlify",
+            width: 1600,
+            height: 1000,
+          },
+        ],
+        imageLayout: "wide",
+      },
+    ],
+    quote: {
+      text: "Great to work with. Quality work and easy to communicate with. Highly recommend.",
+      author: "Client review",
+    },
+  },
+  {
     slug: "tysons-roofing",
+    unlisted: true,
     title: "Tyson's Roofing",
     tag: "Marketing site · Static build",
     blurb:
-      "A lean, hand-coded static site shipped in days — no builder, no subscription — built around a single job: turning a visit into a complete quote request.",
+      "A lean, hand-coded static site shipped in days, built around a single job: turning a visit into a complete quote request.",
     metaTitle: "Fast Hand-Coded Static Marketing Site — Tyson's Roofing",
     metaDescription:
       "A lean, hand-coded static marketing site shipped in days, built around one job: turning a visit into a complete quote request.",
@@ -280,7 +351,7 @@ export const projects: Project[] = [
       heading: "A focused static site, shipped fast",
       paragraphs: [
         "I designed and hand-coded a lean static site built around one job: turning a visit into a quote request. Services, service area, proof of work, and a prominent quote form — nothing that slows the site or distracts from the goal.",
-        "Static hosting means it loads instantly, costs almost nothing to run, and has nothing to break or maintain.",
+        "Static hosting means it loads instantly and has nothing to break or maintain.",
       ],
       bullets: [
         "Conversion-focused one-page design",
@@ -302,6 +373,9 @@ export const projects: Project[] = [
     },
   },
 ];
+
+/** Projects shown on the homepage grid and cycled through by "Next project". */
+export const listedProjects = projects.filter((p) => !p.unlisted);
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

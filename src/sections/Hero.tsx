@@ -117,10 +117,10 @@ export default function Hero() {
         </h1>
 
         <p className="animate-hero-rise mt-6 max-w-xl leading-relaxed text-muted [animation-delay:200ms] sm:mt-8 sm:text-lg">
-          I'm {site.name} — a Next.js and Sanity developer for startups, SaaS
-          teams, and agencies. I move sites off restrictive builders and
-          AI-generated code onto clean, hand-coded architecture your team owns
-          outright.
+          I'm {site.name}. I design sites in Figma and build them as fast,
+          hand-coded React front ends on Sanity CMS, or build your finished
+          design exactly as drawn. For founders who've outgrown their site, and
+          teams and agencies with designs ready to build.
         </p>
 
         <div className="animate-hero-rise mt-8 flex flex-col gap-4 [animation-delay:300ms] sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">

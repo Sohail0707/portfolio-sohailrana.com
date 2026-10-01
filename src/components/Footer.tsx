@@ -18,7 +18,7 @@ export default function Footer() {
               <span className="text-lime">.</span>
             </Link>
             <p className="mt-3 max-w-xs text-sm text-muted">
-              {site.role} — {site.tagline}.
+              {site.role}: {site.tagline}.
             </p>
           </div>
 

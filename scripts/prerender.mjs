@@ -96,6 +96,7 @@ function head(route) {
     OG_IMAGE ? `<meta property="og:image:height" content="630" />` : "",
     OG_IMAGE ? `<meta name="twitter:image" content="${attr(SITE_URL + OG_IMAGE)}" />` : "",
     `<meta name="twitter:card" content="${OG_IMAGE ? "summary_large_image" : "summary"}" />`,
+    `<meta name="twitter:description" content="${attr(route.description)}" />`,
     structuredData(route),
     "<!--/seo-->",
   ]

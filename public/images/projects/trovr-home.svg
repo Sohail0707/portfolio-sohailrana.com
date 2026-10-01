@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#121214"/>
+  <rect x="40" y="40" width="1520" height="920" rx="24" stroke="#c9f24b" stroke-opacity="0.5" stroke-width="3" stroke-dasharray="14 12"/>
+  <text x="50%" y="47%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="64" fill="#f4f4f0">Trovr homepage</text>
+  <text x="50%" y="56%" text-anchor="middle" font-family="'Courier New', monospace" font-size="28" letter-spacing="3" fill="#9c9c94">PLACEHOLDER · 1600x1000 SCREENSHOT</text>
+</svg>

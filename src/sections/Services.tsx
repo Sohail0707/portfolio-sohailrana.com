@@ -15,12 +15,12 @@ import { services } from "../data/site";
 
 /** Per-card accent + icon so each service line gets its own color. */
 const cardAccents = [
-  { Icon: DatabaseIcon, text: "text-cyan", border: "hover:border-cyan/50" },
-  { Icon: PlaneIcon, text: "text-violet", border: "hover:border-violet/50" },
-  { Icon: SearchIcon, text: "text-orange", border: "hover:border-orange/50" },
-  { Icon: CodeIcon, text: "text-lime", border: "hover:border-lime/50" },
   { Icon: LayoutIcon, text: "text-cyan", border: "hover:border-cyan/50" },
   { Icon: PenToolIcon, text: "text-violet", border: "hover:border-violet/50" },
+  { Icon: DatabaseIcon, text: "text-orange", border: "hover:border-orange/50" },
+  { Icon: PlaneIcon, text: "text-lime", border: "hover:border-lime/50" },
+  { Icon: CodeIcon, text: "text-cyan", border: "hover:border-cyan/50" },
+  { Icon: SearchIcon, text: "text-violet", border: "hover:border-violet/50" },
 ];
 
 export default function Services() {
@@ -79,7 +79,7 @@ export default function Services() {
           num="02"
           title="What I Do"
           accent="cyan"
-          intro="One person across the whole pipeline — content model, design, front end, and the migration that gets you there."
+          intro="One person across the whole pipeline: design, front end, content model, and the rebuild that gets you there."
         />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => {
